@@ -9,7 +9,6 @@ const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 
 
-
 const keystone = new Keystone({
   adapter: new MongooseAdapter({ mongoUri: 'mongodb+srv://gbactakaha:Ctakan91@cluster0.nks7a.mongodb.net/keystone-js-quickstart?retryWrites=true&w=majority' }),
   sessionStore: new MongoStore({
