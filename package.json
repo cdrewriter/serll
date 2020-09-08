@@ -2,7 +2,7 @@
   "name": "serl",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/cdrewriter/serl.git",
+  "repository": "https://github.com/cdrewriter/serll.git",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
