@@ -105,7 +105,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
   },
   title: {
     
-    top: '30%',
+    top: '20%',
     left: '2rem',
     right: '2rem',
     height: '40%',
@@ -122,18 +122,18 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     },
     [breakpoints.up('sm')]: {
       top: 120,
-      fontSize: 64,
+      fontSize: 60,
     
       zIndex: 9991,
     },
     [breakpoints.up('md')]: {
-      top: 180,
-      fontSize: 96,
+      top: 120,
+      fontSize: 80,
       
       zIndex: 1,
     },
     [breakpoints.up('lg')]: {
-      top: 140,
+      top: 80,
       fontSize: 96,     
     },
   },

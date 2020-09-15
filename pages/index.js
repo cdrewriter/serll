@@ -19,15 +19,15 @@ export default function Home() {
             Вы не нашли интересующую Вас технику?
           </Typography>
         </Box>
-        <Box className="pricelist__block up">
+   
+      </Box>
+      <Box className="pricelist__block up">
           <Container maxWidth="lg">
             <Paper css={{ padding: '2rem', margin: 0 }} elevation={12}>
               <Formdata key="form" />
             </Paper>
           </Container>
         </Box>
-      </Box>
-
       <Box className="pricelist__block down">
         <Container fixed>
           <PriceSection />

@@ -23,4 +23,4 @@ WORKDIR /home/node
 COPY --from=build /home/node /home/node
 
 EXPOSE 3000
-CMD ["./dumb-init", "yarn", "build", "start"]
+CMD ["./dumb-init", "yarn", "start"]
