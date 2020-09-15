@@ -174,14 +174,7 @@ main {
   margin-bottom: -20rem;
   padding-top: 10rem;
 
-  &.down {
-    margin-top: -10rem;
-    background: #0D1E70;
-  }
-  &.up {
-    z-index: 2;
-    position: relative;
-}
+
   a{
   color: #D6D6D6;
   font-weight: 400;
@@ -193,5 +186,13 @@ main {
   h3 {
       color: #D6D6D6;
   }
+  &.down {
+    margin-top: -10rem;
+    background: #0D1E70;
+  }
+  &.up {
+    z-index: 2;
+    position: relative;
+}
 }
 .slidermain {}

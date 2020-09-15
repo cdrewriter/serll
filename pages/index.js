@@ -12,16 +12,16 @@ export default function Home() {
       <Box p={4}>
         <Demo className="fh" key="slidesmain" />
       </Box>
-      <Box boxShadow={4} p={4} pb={0}>
+      <Box boxShadow={4} p={4} pb={24}>
         <Carous key="carussel" />
         <Box my={12}>
           <Typography variant="h3" component="h3" align="center">
             Вы не нашли интересующую Вас технику?
           </Typography>
         </Box>
-        <Box>
+        <Box className="pricelist__block up">
           <Container maxWidth="lg">
-            <Paper css={{ padding: '2rem', margin: 0, position: 'relative' }} elevation={12}>
+            <Paper css={{ padding: '2rem', margin: 0 }} elevation={12}>
               <Formdata key="form" />
             </Paper>
           </Container>
