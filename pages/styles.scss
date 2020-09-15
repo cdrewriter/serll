@@ -171,12 +171,17 @@ main {
   display: flex;
 }
 .pricelist__block {
-  & down {
-    margin-top: 50px;
+  margin-bottom: -20rem;
+  padding-top: 10rem;
+
+  &.down {
+    margin-top: -10rem;
+    background: #0D1E70;
   }
-  background: #0D1E70;
-  margin-top: -5rem;
-  padding-bottom: 10rem;
+  &.up {
+    z-index: 2;
+    position: relative;
+}
   a{
   color: #D6D6D6;
   font-weight: 400;

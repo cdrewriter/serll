@@ -68,6 +68,7 @@ const Formdata = (props) => {
               
               <div className={classes.titlebox}>
               <HomeIcon style={{ fontSize: '4rem', marginRight: '2rem', color: grey[400] }} viewBox="0 0 80 91.429" />
+                
                 <Typography variant="h4" style={{ lineHeight: 1, textTransform: 'uppercase' }} color="primary">
                   Техника под заказ
                 </Typography>
