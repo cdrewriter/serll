@@ -22,6 +22,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     // relative is a must if you want to create overlapping layers in children
     position: 'relative',
     paddingBottom: '4rem',
+    minHeight: '80vh',
     [breakpoints.up('sm')]: {
       paddingBottom: '4rem',
     },
@@ -48,7 +49,11 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     objectFit: 'contain',
     marginLeft: '12%',
     [breakpoints.up('sm')]: {
-      marginLeft: '34%',
+      marginLeft: '34%',       
+    },
+    [breakpoints.down('sm')]: {
+     
+      display: 'none',
     },
   },
   background: {
@@ -58,7 +63,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     bottom: 0,
     top: 0,
     height: '50vh',
-    width: '100%',
+    width: 'auto',
   },
   arrow: {
     display: 'none',
@@ -85,6 +90,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     // shared style for text-top and text-bottom
     //fontFamily: 'Poppins, san-serif',
     fontWeight: 700,
+    display: 'block',
     position: 'absolute',
     color: palette.common.white,
     padding: '0 8px',
@@ -98,55 +104,67 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     },
   },
   title: {
-    top: 220,
-    left: '10%',
+    
+    top: '30%',
+    left: '2rem',
+    right: '2rem',
     height: '40%',
-    fontSize: 56,
+    width: '100%',
+    fontSize: 48,
+    
     zIndex: 1,
+    whiteSpace: 'break-spaces',
     background: 'linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #0d1e70 80%)',
+    [breakpoints.down('sm')]: {
+      width: '100%',
+     
+      display: 'block',
+    },
     [breakpoints.up('sm')]: {
       top: 120,
       fontSize: 64,
-      left: '-10%',
+    
       zIndex: 9991,
     },
     [breakpoints.up('md')]: {
       top: 180,
       fontSize: 96,
-      left: '-10%',
+      
       zIndex: 1,
     },
     [breakpoints.up('lg')]: {
       top: 140,
-      fontSize: 96,
-      left: '5%',
+      fontSize: 96,     
     },
   },
   subtitle: {
     top: 270,
     padding: '2.5rem',
-    left: '-5%',
-    maxWidth: '50%',
-    height: '',
-    overflow: 'hidden',
-    whiteSpace: 'inherit',
-    textOverflow: 'ellipsis',
+    height: '40%',
+    width: '100%',
+    height: 'auto',
+    whiteSpace: 'break-spaces',
+
     fontSize: 32,
     zIndex: 2,
     background: 'linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, #fe450f 80%)',
     [breakpoints.up('sm')]: {
       top: 270,
-      left: '-5%',
+   
       fontSize: 36,
       zIndex: 9999,
       maxWidth: '100%',
     },
     [breakpoints.up('md')]: {
       top: 270,
-      left: '5%',
+     
       fontSize: 48,
       zIndex: 9999,
       maxWidth: '80vw',
+    },
+    [breakpoints.down('sm')]: {
+      height: '80%',
+      width: '100%',
     },
   },
   indicatorContainer: {

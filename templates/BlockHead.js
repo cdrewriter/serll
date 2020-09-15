@@ -35,8 +35,8 @@ const BlockHead = (props) => {
     <Box display="flex" flexDirection="column" alignItems="left" justifyContent="start" p={1} m={1}>
       {props.children}
       <Typography
-        variant="h4"
-        component="h1"
+        variant="h3"
+        component="h3"
         style={{ lineHeight: 1, textTransform: 'uppercase', marginBottom: '1rem' }}
         color="primary"
       >

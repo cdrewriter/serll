@@ -28,7 +28,12 @@ const ServiceBlock = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-      height: '440px',
+     flexDirection: 'row',
+     justifyContent: 'space-around',
+      
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },    
     },
     Icon: {
       root: {
@@ -90,7 +95,7 @@ const ServiceBlock = () => {
       <>
 
                     <Container maxWidth="lg">
-                        <Box display="flex"  mt={8} mb={0}  justifyContent="spaceBetween">
+                    <Box   className={classes.root} display="flex" flexDirection={'down(md): column'} my={8} justifyContent="spaceBetween">
                             <BlockHead 
                                 heading="Сервис" 
                                 subheading="Ремонт агрегатов, монтаж КМУ, техническое обслуживание." 

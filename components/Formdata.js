@@ -29,9 +29,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'nowrap',
   },
-
+  titlebox: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   bbtn: {
-    minWidth: '16rem',
+    minWidth: '14rem',
     minHeight: '3.rem',
   },
 }));
@@ -54,15 +58,16 @@ const Formdata = (props) => {
           <Box
             display="flex"
             flexDirection="column"
-            height="75%"
+           
             alignItems="center"
             justifyContent="space-evenly"
-            p={1}
-            m={1}
+           
+           
           >
             <div className={classes.iconlogo}>
+              
+              <div className={classes.titlebox}>
               <HomeIcon style={{ fontSize: '4rem', marginRight: '2rem', color: grey[400] }} viewBox="0 0 80 91.429" />
-              <div>
                 <Typography variant="h4" style={{ lineHeight: 1, textTransform: 'uppercase' }} color="primary">
                   Техника под заказ
                 </Typography>
@@ -110,12 +115,10 @@ const Formdata = (props) => {
             className={classes.center}
             display="flex"
             flexDirection="column"
-            height="75%"
-            alignItems="center"
+            alignContent="center"
+                    alignItems="center"
             justifyContent="space-evenly"
-            p={1}
-            m={1}
-            bgcolor="background.paper"
+            
           >
             <Box m={4}>
               <Button variant="contained" size="large" className={classes.bbtn} color="secondary" disableElevation>

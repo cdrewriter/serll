@@ -170,3 +170,23 @@ main {
 .sidebar_cont {
   display: flex;
 }
+.pricelist__block {
+  & down {
+    margin-top: 50px;
+  }
+  background: #0D1E70;
+  margin-top: -5rem;
+  padding-bottom: 10rem;
+  a{
+  color: #D6D6D6;
+  font-weight: 400;
+  text-decoration: none;
+  &:hover, &:focus-within, &:focus {
+      text-decoration: underline;
+    }
+  }
+  h3 {
+      color: #D6D6D6;
+  }
+}
+.slidermain {}

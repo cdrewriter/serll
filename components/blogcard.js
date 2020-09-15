@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 
 export const MusicCardDemo = React.memo(function MusicCard(props) {
   const styles = useStyles();
-  console.log(props);
+  //console.log(props);
   const newpost = props.props;
   const imgs = props.props;
   const img = imgs.photos;
