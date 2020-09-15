@@ -1,5 +1,6 @@
 //@import "~react-image-gallery/styles/scss/image-gallery.scss";
 @import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
+
 main {
   min-height: 90vh;
 }
@@ -68,7 +69,6 @@ main {
   height: 2rem;
   font-size: 0.8rem;
   align-items:center;
-
   cursor:pointer;
   display:flex;
   flex-shrink:0;
@@ -78,7 +78,7 @@ main {
   font-size: 1rem;
   justify-content:center;
   letter-spacing: 0.075rem;
-text-transform: uppercase;
+  text-transform: uppercase;
   margin-left:1rem;
   margin-right:1rem;
   margin-top:0px;
@@ -91,11 +91,11 @@ text-transform: uppercase;
   padding-top:6px;
   position:relative;
   text-align:center;
+  text-decoration: none !important;
   text-decoration-line:none;
   text-decoration-style:solid;
-
   color: #4B4B4B;
-
+  -moz-text-decoration-line:none;
 }
 .navmenuitem.active {
   color: #0D1E70;

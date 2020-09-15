@@ -1,5 +1,5 @@
 import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
@@ -34,15 +34,11 @@ export default class MyDocument extends Document {
   }
   render() {
     return (
-      <html lang="ru" dir="ltr">
+      <Html lang="ru" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-          <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-          <link rel="icon" href="/favicon.png" />
-         
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />         
+
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </Head>
@@ -57,7 +53,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

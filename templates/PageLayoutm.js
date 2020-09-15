@@ -10,7 +10,7 @@ import HeaderEx from '../components/HeaderEx';
 import NavFooterEx from '../components/FooterEx';
 import { useGraphQL } from 'graphql-react';
 import { useRouter } from 'next/router';
-
+import './theme';
 import {
   Root,
   getHeader,
@@ -36,7 +36,7 @@ muiTreasuryScheme.enableAutoCollapse('primarySidebar', 'md');
 
 muiTreasuryScheme.configureHeader((builder) => {
   builder
-    .create('headermui')
+    .create('header')
     .registerConfig('xs', {
       position: 'sticky',
       initialHeight: 64,
@@ -50,35 +50,38 @@ muiTreasuryScheme.configureHeader((builder) => {
 const Layoutnx = ({ children }) => {
   const router = useRouter();
   muiTreasuryScheme.configureEdgeSidebar((builder) => {
-    builder.create('primarySidebar', { anchor: 'left' }).registerPermanentConfig('xl', {
+    builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('xl', {
       width: '20%', // recommended width
-      collapsible: true,
+      collapsible: false,
       collapsedWidth: 64,
       headerMagnetEnabled: true,
       autoExpanded: true,
+      persistentBehavior: "fit",
     });
-    builder.create('primarySidebar', { anchor: 'left' }).registerPermanentConfig('lg', {
+    builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('lg', {
       width: '22.5%', // recommended width
-      collapsible: true,
+      collapsible: false,
       collapsedWidth: 64,
       headerMagnetEnabled: true,
       autoExpanded: true,
+      persistentBehavior: "fit",
     });
-    builder.create('primarySidebar', { anchor: 'left' }).registerPermanentConfig('md', {
+    builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('md', {
       width: '22.5%', // recommended width
-      collapsible: true,
+      collapsible: false,
       collapsedWidth: 64,
       headerMagnetEnabled: true,
       autoExpanded: true,
+      persistentBehavior: "fit",
     });
     if (router.pathname === '/') {
-      builder.hide('primarySidebar', true);
+      builder.hide('primarySidebar', false);
     }
     if (router.pathname === '/cars') {
-      builder.hide('primarySidebar', true);
+      builder.hide('primarySidebar', false);
     }
     if (router.pathname === '/catalog') {
-      builder.hide('primarySidebar', true);
+      builder.hide('primarySidebar', false);
     }
   });
   return (
@@ -90,7 +93,6 @@ const Layoutnx = ({ children }) => {
             <Header>
               <Toolbar>
                 <SidebarTrigger sidebarId="primarySidebar" />
-
                 <HeaderEx />
               </Toolbar>
             </Header>

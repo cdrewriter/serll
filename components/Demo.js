@@ -42,9 +42,9 @@ const data = [
 ];
 
 const Demo = () => (
-  <Box width={'100%'} maxWidth={'100%'} mx={'auto'}>
+
     <ParallaxCarousel data={data} />
-  </Box>
+
 );
 
 export default Demo;

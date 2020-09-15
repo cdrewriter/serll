@@ -14,6 +14,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
   root: {
     // a must if you want to set arrows, indicator as absolute
     position: 'relative',
+  
   },
   slide: {
     perspective: 0, // create perspective
@@ -32,6 +33,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
     display: 'block',
     position: 'relative',
     zIndex: 2,
+    
     maxHeight: '90vh',
     minHeight: '45vh',
     //paddingBottom: '30.25%'
