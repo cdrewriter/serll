@@ -8,13 +8,15 @@ import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+   
     '& > *': {
       margin: theme.spacing(1),
     },
     '& > svg': {
-      margin: theme.spacing(2),
-      widdth: theme.spacing(4),
-      height: theme.spacing(4),
+      marginRight: theme.spacing(2),
+      width: theme.spacing(8),
+      height: theme.spacing(8),
+      alignSelf: 'center',
     },
   },
   center: {
@@ -32,12 +34,21 @@ const BlockHead = (props) => {
 
   const classes = useStyles();
   return (
-    <Box display="flex" flexDirection="column" alignItems="left" justifyContent="start" p={1} m={1}>
+    <Box
+      className={classes.root}
+      display="flex"
+      flexDirection="row"
+      alignItems="left"
+      justifyContent="start"
+      p={1}
+      m={1}
+    >
       {props.children}
+      <Box className="title__subtitle">
       <Typography
-        variant="h3"
-        component="h3"
-        style={{ lineHeight: 1, textTransform: 'uppercase', marginBottom: '1rem' }}
+        variant="h4"
+        component="h2"
+        style={{ lineHeight: 1, textTransform: 'uppercase', }}
         color="primary"
       >
         {props.heading}
@@ -45,6 +56,7 @@ const BlockHead = (props) => {
       <Typography variant="subtitle1" color="secondary" display="inline">
         {props.subheading}
       </Typography>
+      </Box>
     </Box>
   );
 };

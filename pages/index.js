@@ -12,8 +12,8 @@ export default function Home() {
       <Box p={4}>
         <Demo className="fh" key="slidesmain" />
       </Box>
-      <Box boxShadow={4} p={4} pb={24}>
-        <Carous key="carussel" />
+      <Box boxShadow={4} position="relative" pb={30}>
+        <Carous/>
         <Box my={12}>
           <Typography variant="h3" component="h3" align="center">
             Вы не нашли интересующую Вас технику?
@@ -28,12 +28,13 @@ export default function Home() {
             </Paper>
           </Container>
         </Box>
-      <Box className="pricelist__block down">
+      <Box m={0} p={0} className="pricelist__block down">
         <Container fixed>
           <PriceSection />
-          <ServiceBlock />
+         
         </Container>
       </Box>
+      <ServiceBlock />
     </React.Fragment>
   );
 }

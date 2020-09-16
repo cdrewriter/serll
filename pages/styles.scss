@@ -1,5 +1,6 @@
 //@import "~react-image-gallery/styles/scss/image-gallery.scss";
 @import url('https://use.fontawesome.com/releases/v5.12.0/css/all.css');
+@import './assets/scss/main.scss';
 
 main {
   min-height: 90vh;
@@ -182,16 +183,27 @@ main {
       text-decoration: underline;
     }
   }
-  h3 {
-      color: #D6D6D6;
-  }
+  
   &.down {
-    margin-top: -10rem;
-    background: #0D1E70;
+    
+    margin-top: -6.5rem;
+  
+    background: url('https://res.cloudinary.com/dpiuthi6q/image/upload/v1600249290/my-keystone-app/partsbg_zn20cm.jpg') #0D1E70;
   }
   &.up {
     z-index: 2;
     position: relative;
 }
 }
-.slidermain {}
+.title__subtitle {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  
+}
+.inverted {
+  h2 {
+    color: #D6D6D6;
+    font-size: 2rem;
+  }
+}

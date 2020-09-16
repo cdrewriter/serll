@@ -13,12 +13,12 @@ import { useGraphQL } from 'graphql-react';
 
 const carousels = {
   breakPoints: [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 850, itemsToShow: 3 },
-    { width: 1150, itemsToShow: 3, itemsToScroll: 2 },
-    { width: 1450, itemsToShow: 4 },
-    { width: 1750, itemsToShow: 4 },
+    { width: 1, itemsToShow: 2 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 2 },
+    { width: 850, itemsToShow: 4 },
+    { width: 1150, itemsToShow: 4, itemsToScroll: 2 },
+    { width: 1450, itemsToShow: 5 },
+    { width: 1750, itemsToShow: 5 },
   ],
 };
 
@@ -27,6 +27,13 @@ const Carous = () => {
     root: {
       width: '100%',
       height: '440px',
+    },
+    iconlogo: {
+      fontSize: '4rem',
+      height: '4rem',
+      width: '4rem',
+      marginRight: '2rem',
+      color: grey[300],
     },
     Icon: {
       root: {
@@ -107,13 +114,14 @@ const Carous = () => {
     return (
       <>
         <Container fixed>
+          <Box p={4}>
           <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center">
             <HomeIcon
-              className={classes.iconlogo}
-              style={{ fontSize: '4rem', marginRight: '2rem', color: grey[300] }}
+              className={classes.iconlogo}              
               viewBox="0 0 80 91.429"
             />
           </BlockHead>
+          </Box>
         </Container>
         <Carousel
           itemPadding={[26, 4]}

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { grey } from '@material-ui/core/colors';
+import BlockHead from '../templates/BlockHead';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,14 +68,10 @@ const Formdata = (props) => {
             <div className={classes.iconlogo}>
               
               <div className={classes.titlebox}>
+             
+              <BlockHead heading=" Техника под заказ" subheading="  по вашим требованиям" justifyContent="center">
               <HomeIcon style={{ fontSize: '4rem', marginRight: '2rem', color: grey[400] }} viewBox="0 0 80 91.429" />
-                
-                <Typography variant="h4" style={{ lineHeight: 1, flex: 1, textTransform: 'uppercase' }} color="primary">
-                  Техника под заказ
-                </Typography>
-                <Typography variant="subtitle1" color="secondary" display="inline">
-                  по вашим требованиям
-                </Typography>
+          </BlockHead> 
                 <Box py={2}>
                   <Typography variant="subtitle2" fontSize="small" style={{ lineHeight: 1, paddingBottom: '0.5rem' }}>
                     У нас есть все разрешения и документы для переоборудования автомобилей.

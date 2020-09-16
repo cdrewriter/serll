@@ -9,6 +9,7 @@ import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import Utils from '../../utils';
 import Link from 'next/link';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import { Box, Container, SvgIcon, Button, IconButton, Icon, Typography } from '@material-ui/core';
 import { useGraphQL } from 'graphql-react';
 import PriceCategories from '../../components/sidebars/PriceCategoriesMain';
@@ -36,12 +37,15 @@ const Carous = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-     flexDirection: 'row',
-     justifyContent: 'space-around',
-      
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },    
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+      },
+    },
+    linkbtn: {
+      color: 'white',
     },
     Icon: {
       root: {
@@ -93,30 +97,41 @@ const Carous = () => {
     return (
       <>
         <Container maxWidth="lg">
-          <Box   className={classes.root} display="flex" flexDirection={'down(md): column'} my={8} justifyContent="spaceBetween">
-            <Box style={{ display: 'flex',  alignItems: 'center' }}>
-              <BlockHead heading="Запасные части" subheading="к автомобилю Урал, Камаз" justifyContent="center">
+          <Box
+            className={classes.root}
+            display="flex"
+            flexDirection={'down(md): column'}
+            my={8}
+            justifyContent="spaceBetween"
+          >
+            <Box style={{ display: 'flex', alignItems: 'center',  }} className="inverted">
+              <BlockHead heading="Запасные части" subheading="к автомобилю Урал, Камаз" justifyContent="center" >
                 <SparePartsIcon
                   className={classes.iconlogo}
-                  style={{ fontSize: '4rem', marginRight: '2rem', color: grey[300] }}
+                  style={{ fontSize: '4rem', marginRight: '2rem' }}
                   viewBox="0 0 80 91.429"
                 />
               </BlockHead>
             </Box>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton>
-                <Icon style={{ fontSize: 40 }}>get_app</Icon>
-              </IconButton>
-              <Link href={`/`}>
-                <Typography noWrap color={'textSecondary'} className={classes.header}>
+          
+              <Button  href={`/`}
+        variant="outlined"
+        color="secondary"
+        className={classes.button}
+        startIcon={<GetAppIcon />}
+      >
+               
+             
                   Скачать прайс-лист
-                </Typography>
-              </Link>
+           </Button>
+       
             </Box>
           </Box>
+          <PriceCategories priceCategories={allItemCategories} />
         </Container>
 
-        <PriceCategories priceCategories={allItemCategories} />
+        
       </>
     );
   }

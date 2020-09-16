@@ -127,20 +127,6 @@ main {
 
 }
 
-.pricelist__block {
-    background: url(../img/partsbg.jpg) #0D1E70;
-    a{
-    color: #D6D6D6;
-    font-weight: 400;
-    text-decoration: none;
-    &:hover, &:focus-within, &:focus {
-        text-decoration: underline;
-      }
-    }
-    h3 {
-        color: #D6D6D6;
-    }
-}
 
 .fullwidthcenter {
     display: flex;
