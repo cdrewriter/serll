@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
 import { Paper, Box, Container, SvgIcon } from '@material-ui/core';
-import PageLayout from '../../templates/PageLayoutm';
+import CircularIndeterminate from '../../components/loading';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import Tabll from '../../components/dataTable';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import Header from '../../components/header';
-
+import PageLayout from '../../templates/PageLayoutm';
 /*
 export async function getServerSideProps() {
   const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/priceapi`)
@@ -97,7 +97,8 @@ const BlogDetail = () => {
     const post = allItemPrices[0];
     return (
       <>
-        <Container fixed>
+         <PageLayout id="catalog-price">
+        <Box display="flex" flexDirection="column">
           <Breadcrumbs
             pagePath={post.categories.slug}
             pageTitle={post.categories.name}
@@ -130,8 +131,7 @@ const BlogDetail = () => {
               justifyContent="center"
             />
           </Box>
-        </Container>
-        <Container maxWidth={false}>
+        
           {/*<Grid container>
             <Grid item xs={3}>
               <PriceCategories priceCategories={allItemCategories} activeKey={slug} />
@@ -142,12 +142,13 @@ const BlogDetail = () => {
           </Paper>
           {/*</Grid>
           </Grid>*/}
-        </Container>
+        </Box>
+        </PageLayout>
       </>
     );
   }
 
-  return 'Loading...';
+  return <CircularIndeterminate />;
 };
 
 BlogDetail.propTypes = {

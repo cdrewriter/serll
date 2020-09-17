@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
 import Utils from '../../utils';
-import { Container, Box, SvgIcon } from '@material-ui/core';
+import { Box, SvgIcon } from '@material-ui/core';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import PriceCategories from '../../components/sidebars/PriceCategoriesMainT';
 import PriceItem from '../../components/price/PriceItem';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
+import PageLayout from '../../templates/PageLayoutm';
 /*
 export async function getServerSideProps() {
   const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/carcatapi`)
@@ -85,8 +86,9 @@ const CarsList = () => {
       }
     }
     return (
-        <>
-        <Container maxWidth="md">
+      <>
+       <PageLayout id="catalog-cars">
+        <Box display="flex" flexDirection="column">
           <Breadcrumbs
             pageTitle="Каталог Техники"
             pagePath="/cars"
@@ -97,21 +99,26 @@ const CarsList = () => {
               },
             ]}
           />
-        </Container>
-        <Container fixed>
+
           <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
             <SparePartsIcon
-              style={{  marginLeft: '2rem', marginRight: '2rem', transform: 'scale(2.5) translateY(0.5rem)', color: grey[300] }}
+              style={{
+                marginLeft: '2rem',
+                marginRight: '2rem',
+                transform: 'scale(2.5) translateY(0.5rem)',
+                color: grey[300],
+              }}
               viewBox="0 0 80 91.429"
             />
             <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center" />
           </Box>
           <PriceCategories priceCategories={allItemCarCategories} activeKey={slug} />
-        </Container>
-        </>
+        </Box>
+        </PageLayout>
+      </>
     );
   }
-  return <>Loading...</>;
+  return <div className="loadingss">Loadings...</div>;
 };
 
 CarsList.propTypes = {};

@@ -7,12 +7,11 @@ import { Box, Container, Grid, SvgIcon } from '@material-ui/core';
 import PageLayout from '../../templates/PageLayoutm';
 import { makeStyles } from '@material-ui/styles';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
-
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import Header from '../../components/header';
 import BgCard from '../../components/bgcard';
-
+import theme from '../../templates/theme';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: 100,
   },
   control: {
-    padding: theme.spacing(2),
+    padding: theme.spacing,
   },
 }));
 function SparePartsIcon(props) {
@@ -121,9 +120,10 @@ const BlogDetail = () => {
       return 'Not fou1nd';
     }
     return (
-      slug,
+     
       <>
-        <Container fixed>
+        <PageLayout id="catalog-cars">
+         <Box display="flex" flexDirection="column">
           <Breadcrumbs
             pagePath={post.categories.slug}
             pageTitle={post.categories.name}
@@ -149,17 +149,17 @@ const BlogDetail = () => {
               justifyContent="center"
             />
           </Box>
-        </Container>
-        <Container maxWidth={false}>
+       
           <Grid container className={classes.root} spacing={2}>
             {cars.length ? <React.Fragment>{cars}</React.Fragment> : <p>There are no post.</p>}
           </Grid>
-        </Container>
+        </Box>
+        </PageLayout>
       </>
     );
   }
 
-  return 'Loading...';
+  return <div className="loadingss">Loadings...</div>;
 };
 
 BlogDetail.propTypes = {

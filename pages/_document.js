@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
     const styledComponentsSheet = new ServerStyleSheet();
     const materialSheets = new ServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
-
+    
     try {
       ctx.renderPage = () =>
         originalRenderPage({
@@ -33,6 +33,7 @@ export default class MyDocument extends Document {
     }
   }
   render() {
+   
     return (
       <Html lang="ru" dir="ltr">
         <Head>

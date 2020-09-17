@@ -2,22 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BreadcrumbJsonLd } from 'next-seo';
 import Config from '../../configs';
+import { Breadcrumbs } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
+//import { Breadcrumb } from 'react-bootstrap';
 
-import { Breadcrumb } from 'react-bootstrap';
-
-import './Breadcrumbs.scss';
+//import './Breadcrumbs.scss';
 
 const baseUrl = Config.BASE_URL.replace(/\/$/, '');
 
-const Breadcrumbs = ({ pageTitle, pagePath, parts }) => {
+const Breadcrumb = ({ pageTitle, pagePath, parts }) => {
   const breadcrumbItems = [],
     itemListElements = [];
 
   for (let i = 0; i < parts.length; ++i) {
     breadcrumbItems.push(
-      <Breadcrumb.Item key={i} href={parts[i].href}>
+      <Link key={i} href={parts[i].href}>
         {parts[i].title}
-      </Breadcrumb.Item>
+      </Link>
     );
     itemListElements.push({
       position: i + 1,
@@ -35,15 +36,15 @@ const Breadcrumbs = ({ pageTitle, pagePath, parts }) => {
   return (
     <React.Fragment>
       <BreadcrumbJsonLd itemListElements={itemListElements} />
-      <Breadcrumb className="breadcrumbs">
+      <Breadcrumbs className="breadcrumbs">
         {breadcrumbItems}
-        {!!pageTitle && <Breadcrumb.Item active>{pageTitle}</Breadcrumb.Item>}
-      </Breadcrumb>
+        {!!pageTitle && <Link active="true">{pageTitle}</Link>}
+      </Breadcrumbs>
     </React.Fragment>
   );
 };
 
-Breadcrumbs.propTypes = {
+Breadcrumb.propTypes = {
   pageTitle: PropTypes.string,
   pagePath: PropTypes.string,
   parts: PropTypes.arrayOf(
@@ -54,4 +55,4 @@ Breadcrumbs.propTypes = {
   ),
 };
 
-export default Breadcrumbs;
+export default Breadcrumb;

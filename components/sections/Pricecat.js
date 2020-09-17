@@ -135,7 +135,7 @@ const Carous = () => {
       </>
     );
   }
-  return <>Loading...</>;
+  return <div className="loadingss">Loadings...</div>;
 };
 
 Carous.propTypes = {};

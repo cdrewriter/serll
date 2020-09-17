@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
 import Utils from '../../utils';
-import { Box, Container, SvgIcon } from '@material-ui/core';
+import { Box, SvgIcon } from '@material-ui/core';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import PriceCategories from '../../components/sidebars/PriceCategoriesMain';
+import PageLayout from '../../templates/PageLayoutm';
+import CircularIndeterminate from '../../components/loading';
 
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
@@ -13,7 +15,7 @@ import { grey } from '@material-ui/core/colors';
 /*
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/pricecatapi`)
+  const res = await fetch(`${process.browser ? '' : 'http://localhost:3000/admin/api/pricecatapi`)
   const data = await res.json()
 
   // Pass data to the page via props
@@ -100,7 +102,10 @@ const SpareCategoryList = () => {
 */
     return (
       <>
-        <Container maxWidth="md">
+      <PageLayout id="catalog-price">
+
+
+        <Box display="flex" flexDirection="column">
           <Breadcrumbs
             pageTitle="Каталог"
             pagePath="/catalog"
@@ -111,8 +116,6 @@ const SpareCategoryList = () => {
               },
             ]}
           />
-        </Container>
-        <Container fixed>
           <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
             <SparePartsIcon
               style={{
@@ -130,12 +133,13 @@ const SpareCategoryList = () => {
             />
           </Box>
           <PriceCategories priceCategories={allItemCategories} activeKey={slug} />
-        </Container>
+        </Box>
+        </PageLayout>
       </>
     );
   }
 
-  return <>Loading...</>;
+  return <CircularIndeterminate />;
 };
 
 SpareCategoryList.propTypes = {};

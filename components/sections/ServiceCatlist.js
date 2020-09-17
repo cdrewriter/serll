@@ -118,7 +118,7 @@ const ServiceBlock = () => {
       </>
     );    
   }
-  return <>Loading...</>;  
+  return <div className="loadingss">Loadings...</div>; 
 };
 
 ServiceBlock.propTypes = {};

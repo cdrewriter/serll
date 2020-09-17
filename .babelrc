@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "styled-jsx": {
+          "optimizeForSpeed": false
+        }
+      }
+    ]
+  ],
+  "plugins": [["styled-components", { "ssr": true }]],
+  
+}

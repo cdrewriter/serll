@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import theme from './theme';
 import HeaderEx from '../components/HeaderEx';
 import NavFooterEx from '../components/FooterEx';
-import '../pages/styles.scss';
+import { useGraphQL } from 'graphql-react';
 import { useRouter } from 'next/router';
-
+import '../pages/styles.scss';
 
 
 import {
@@ -18,23 +18,20 @@ import {
   getHeader,
   getDrawerSidebar,
   getSidebarTrigger,
-  getInsetContainer,
-  getInsetSidebar,
   getSidebarContent,
   getCollapseBtn,
   getContent,
   getFooter,
   getMuiTreasuryScheme,
 } from '@mui-treasury/layout';
-import {  NavContentMockUp } from '@mui-treasury/mockup/layout';
+import { ContentMockUp, FooterMockUp, NavContentMockUp } from '@mui-treasury/mockup/layout';
 import NestedMenu from '../components/NestedMenu';
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
 const SidebarTrigger = getSidebarTrigger(styled);
 const SidebarContent = getSidebarContent(styled);
 const CollapseBtn = getCollapseBtn(styled);
-const InsetContainer = getInsetContainer(styled);
-const InsetSidebar = getInsetSidebar(styled);
+
 const Content = getContent(styled);
 const Footer = getFooter(styled);
 const muiTreasuryScheme = getMuiTreasuryScheme(styled);
@@ -54,15 +51,8 @@ muiTreasuryScheme.configureHeader((builder) => {
       initialHeight: 64,
     });
 });
-muiTreasuryScheme.configureInsetSidebar((builder) => { 
-   
-  builder.create('insetSidebar', { anchor: 'left' }).registerFixedConfig('sm', {
-    width: '20rem', // recommended width
-    headerMagnetEnabled: true,     
-  });
 
-});
-const Layoutnx = ({ children }) => {
+const Layouti = ({ children }) => {
 
   const router = useRouter();
 
@@ -92,8 +82,7 @@ const Layoutnx = ({ children }) => {
       persistentBehavior: 'fit',
     });
     if (router.pathname === '/') {
-      builder.hide('primarySidebar', false);
-    
+      builder.hide('primarySidebar', false);    
     }
     if (router.pathname === '/cars') {
       builder.hide('primarySidebar', false);
@@ -124,18 +113,10 @@ const Layoutnx = ({ children }) => {
               <CollapseBtn />
             </DrawerSidebar>
             <Content>
-              <InsetContainer 
-                maxWidth={'xl'}
-                leftSidebar={
-                  <InsetSidebar sidebarId={'insetSidebar'}>
-                    <Box mt={2} />
-                    <NavContentMockUp />
-                  </InsetSidebar>
-                }
-              >
-                <Box>{children}</Box>
+             
+                {children}
                
-              </InsetContainer>
+            
             </Content>
             <Footer>
               <NavFooterEx />
@@ -146,8 +127,8 @@ const Layoutnx = ({ children }) => {
     </StylesProvider>
   );
 };
-export default Layoutnx;
+export default Layouti;
 
-Layoutnx.propTypes = {
+Layouti.propTypes = {
   children: PropTypes.any,
 };

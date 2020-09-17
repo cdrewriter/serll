@@ -6,14 +6,22 @@ import Carous from '../components/sections/carousel';
 import PriceSection from '../components/sections/Pricecat';
 import ServiceBlock from '../components/sections/ServiceCatlist';
 import { shadows } from '@material-ui/system';
+
+
+import PageLayout from '../templates/PageLayouti';
+
+
+
+
 export default function Home() {
   return (
     <React.Fragment>
+      <PageLayout id="catalog-cars">
       <Box p={4}>
         <Demo className="fh" key="slidesmain" />
       </Box>
       <Box boxShadow={4} position="relative" pb={30}>
-        <Carous/>
+        <Carous className="carouselmain" key="karus" />
         <Box my={12}>
           <Typography variant="h3" component="h3" align="center">
             Вы не нашли интересующую Вас технику?
@@ -28,13 +36,15 @@ export default function Home() {
             </Paper>
           </Container>
         </Box>
-      <Box m={0} p={0} className="pricelist__block down">
+      <Box m={0} className="pricelist__block down">
         <Container fixed>
           <PriceSection />
          
         </Container>
       </Box>
       <ServiceBlock />
+      </PageLayout>
     </React.Fragment>
+    
   );
 }
