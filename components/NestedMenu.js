@@ -16,6 +16,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { Divider } from '@material-ui/core';
 import PriceCarCategories from './sidebars/PriceCarCategories';
 import PriceCategories from './sidebars/PriceCategories';
+import { CatList } from '../components/catlistquery';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,6 +76,7 @@ export default function NestedMenu({ carcat, itcat }) {
       </ListItem>
       <Divider />
       <Collapse in={open} timeout="auto" unmountOnExit>
+      <CatList pt={10}/>
         <ListItem>
           <List component="div" disablePadding>
             <PriceCategories priceCategories={itcat} />

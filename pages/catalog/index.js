@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
 import Utils from '../../utils';
-import { Box, SvgIcon } from '@material-ui/core';
+import { Box, Container, SvgIcon } from '@material-ui/core';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import PriceCategories from '../../components/sidebars/PriceCategoriesMain';
 import PageLayout from '../../templates/PageLayoutm';
@@ -74,7 +74,7 @@ const SpareCategoryList = () => {
     loadOnReload: true,
     loadOnReset: true,
   });
-  const { cacheValue } = result;
+  const { loading, cacheValue } = result;
 
   if (cacheValue && cacheValue.data) {
     const { /*_allItemPricesMeta, allItemPrices,*/ allItemCategories } = cacheValue.data;
@@ -102,44 +102,46 @@ const SpareCategoryList = () => {
 */
     return (
       <>
-      <PageLayout id="catalog-price">
-
-
-        <Box display="flex" flexDirection="column">
-          <Breadcrumbs
-            pageTitle="Каталог"
-            pagePath="/catalog"
-            parts={[
-              {
-                title: 'Главная',
-                href: '/',
-              },
-            ]}
-          />
-          <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <SparePartsIcon
-              style={{
-                marginLeft: '2rem',
-                marginRight: '2rem',
-                transform: 'scale(2.5) translateY(0.5rem)',
-                color: grey[300],
-              }}
-              viewBox="0 0 80 91.429"
-            />
-            <BlockHead
-              heading="Каталог запасных частей"
-              subheading="Для автомобилей Урал, Камаз и спецтехники"
-              justifyContent="center"
-            />
+        <PageLayout id="catalog-price">
+          <Box display="flex" flexDirection="column" justifycontent={'center'} >
+            <Box className="breadcrumbs__box">
+              <Breadcrumbs
+                pageTitle="Каталог"
+                pagePath="/catalog"
+                parts={[
+                  {
+                    title: 'Главная',
+                    href: '/',
+                  },
+                ]}
+              />
+            </Box>
+            <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <SparePartsIcon
+                style={{
+                  marginLeft: '2rem',
+                  marginRight: '2rem',
+                  transform: 'scale(2.5) translateY(0.5rem)',
+                  color: grey[300],
+                }}
+                viewBox="0 0 80 91.429"
+              />
+              <BlockHead
+                heading="Каталог запасных частей"
+                subheading="Для автомобилей Урал, Камаз и спецтехники"
+                justifyContent="center"
+              />
+            </Box>
+            <Container >
+            <PriceCategories priceCategories={allItemCategories} activeKey={slug} />
+            </Container>
           </Box>
-          <PriceCategories priceCategories={allItemCategories} activeKey={slug} />
-        </Box>
         </PageLayout>
       </>
     );
   }
 
-  return <CircularIndeterminate />;
+  return loading ? <CircularIndeterminate /> : '';
 };
 
 SpareCategoryList.propTypes = {};

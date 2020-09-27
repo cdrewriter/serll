@@ -1,58 +1,47 @@
-
 import React from 'react';
-import 'cross-fetch/polyfill';
+import NextApp from 'next/app';
 import { GraphQLProvider } from 'graphql-react';
 import { withGraphQLApp } from 'next-graphql-react';
-
-import  theme from  '../templates/theme';
 import Head from 'next/head';
-
-
 import PropTypes from 'prop-types';
-import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
+import { ThemeProvider as StyledThemeProvider } from 'styled-components'
+import { ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles';
+import theme from '../templates/theme';
+import './styles.scss';
 
+class MyApp extends NextApp {
+  componentDidMount() {
+    const jssStyles = document.querySelector('#jss-server-side')
+    if (jssStyles && jssStyles.parentNode)
+      jssStyles.parentNode.removeChild(jssStyles)
+  }
 
-function MyApp(props) {
-  const { Component, pageProps, graphql, styling } = props;
-
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
-
-  return (
-    <React.Fragment>
-     
+  render() {
+    const { Component, pageProps, graphql } = this.props;
+    return (
+     <>
+      <CssBaseline /> 
+          <StyledThemeProvider theme={theme}>           
+              <MaterialThemeProvider theme={theme}>             
+                <GraphQLProvider graphql={graphql}>
             <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="color-scheme" content="light dark" />
-      <meta name="theme-color" content="white" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@jaydenseric" />
-      <meta name="twitter:creator" content="@jaydenseric" />
-      <link rel="icon" sizes="192x192" href="/static/icon.png" />
-      <link rel="manifest" href="/manifest.webmanifest" />
-    </Head>
-  
-       <GraphQLProvider graphql={graphql}>   
-      
-         <Component { ...pageProps} { ...styling } />
-      
-   
-      
+              <title>My page</title>
+              <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+            </Head>
 
-         </GraphQLProvider>
-     
-      </React.Fragment>
-   
-  );
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+
+            <Component {...pageProps} />
+            </GraphQLProvider>
+            </MaterialThemeProvider>
+      </StyledThemeProvider>
+       </>
+    
+    );
+  }
 }
-
-
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,

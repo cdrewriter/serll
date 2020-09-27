@@ -3,12 +3,13 @@ import MUIDataTable from 'mui-datatables';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-const getMuiTheme = () =>
+const getMuiTheme = ({theme}) =>
   createMuiTheme({
     overrides: {
       MuiPaper: {
         root: {
-          backgroundColor: '#fafafa',
+          backgroundColor: 'transparent',
+          padding: theme.spacing(2),
         },
       },
       MUIDataTable: {
@@ -29,8 +30,7 @@ const getMuiTheme = () =>
 const useStyles = makeStyles({
   muidt: {
     '& > div:nth-child(3)': {
-      boxShadow:
-        '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
+    
     },
   },
 });

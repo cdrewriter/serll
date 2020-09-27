@@ -1,17 +1,15 @@
 import React from 'react';
-import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
-import { Box, Container, Grid, SvgIcon } from '@material-ui/core';
+import { Box,  Paper, Container, Grid, SvgIcon } from '@material-ui/core';
 import PageLayout from '../../templates/PageLayoutm';
 import { makeStyles } from '@material-ui/styles';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
-import Header from '../../components/header';
 import BgCard from '../../components/bgcard';
-import theme from '../../templates/theme';
+import CircularIndeterminate from '../../components/loading';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -42,17 +40,7 @@ function SparePartsIcon(props) {
     </SvgIcon>
   );
 }
-function Headdate({ data }) {
-  const newdata = datas[0];
-  return (
-    <>
-      <Head>
-        <title>{newdata.categories.name}</title>
-      </Head>
-      <Header heading={newdata.categories.name} />
-    </>
-  );
-}
+
 const BlogDetail = () => {
 
   const { query } = useRouter();
@@ -104,8 +92,7 @@ const BlogDetail = () => {
 
   const classes = useStyles();
 
-
-  const { cacheValue } = result;
+  const { loading, cacheValue } = result;
   if (cacheValue && cacheValue.data) {
     const { allItemCars } = cacheValue.data;
     const post = allItemCars[0];
@@ -159,7 +146,7 @@ const BlogDetail = () => {
     );
   }
 
-  return <div className="loadingss">Loadings...</div>;
+  return loading ? <CircularIndeterminate /> : '';
 };
 
 BlogDetail.propTypes = {

@@ -1,13 +1,7 @@
 import React from 'react';
-import { jsx } from '@emotion/core';
-import Link from 'next/link';
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import { Box, Container } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
@@ -15,12 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import {AccordionDetails, AccordionSummary, Accordion, Grid, Box, Typography, Container } from '@material-ui/core/';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -38,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-/** @jsx jsx */
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +42,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+         {children}
         </Box>
       )}
     </div>
@@ -98,8 +87,7 @@ const AntTabs = withStyles({
 
 function LinkTab(props) {
   return (
-    <Tab
-      component="a"
+    <Tab     
       onClick={(event) => {
         event.preventDefault();
       }}
@@ -123,7 +111,7 @@ const ExpansionPanel = withStyles({
     },
   },
   expanded: {},
-})(MuiExpansionPanel);
+})(Accordion);
 
 const ExpansionPanelSummary = withStyles({
   root: {
@@ -141,13 +129,13 @@ const ExpansionPanelSummary = withStyles({
     },
   },
   expanded: {},
-})(MuiExpansionPanelSummary);
+})(AccordionSummary);
 
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
-}))(MuiExpansionPanelDetails);
+}))(AccordionDetails);
 
 function ItemCategory({ itemcategory }) {
   const [expanded, setExpanded] = React.useState('panel-${itemcategory.id}');
@@ -196,8 +184,8 @@ export default function TabServ({ itemcategories }){
   };
  
   return (
-    <div className={classes.root}>
-      <Box bgcolor="common.white" color="primary.contrastText">
+
+      <Box className={classes.root} bgcolor="common.white" color="primary.contrastText">
         <Container maxWidth="lg">
           <AppBar style={{ color: '#0D1E70', backgroundColor: 'transparent', boxShadow: 'none' }} position="static">
             <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="nav tabs example">
@@ -210,13 +198,12 @@ export default function TabServ({ itemcategories }){
         </Container>
         <Box style={{ background: '#EBEBEB' }}>
           <Container maxWidth="lg">
-            <TabPanel value={value} index={0}>
-     
+            <TabPanel value={value} index={0}>     
                 <Grid container spacing={3}>
                   {itemcategories.length ? (
                     itemcategories.map(itemcategory => <ItemCategory itemcategory={itemcategory} key={itemcategory.id} slugcat={itemcategory.slugcat} items={itemcategories.items}/>)
                   ) : (                 
-                    <p>No posts to display</p>
+                    'No posts to display'
                   )}
                 </Grid>
                   
@@ -230,6 +217,6 @@ export default function TabServ({ itemcategories }){
           </Container>
         </Box>
       </Box>
-    </div>
+
   );
 };

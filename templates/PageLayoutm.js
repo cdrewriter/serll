@@ -3,15 +3,11 @@ import styled from 'styled-components';
 import { StylesProvider } from '@material-ui/core/styles';
 import { Toolbar, Box } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import theme from './theme';
 import HeaderEx from '../components/HeaderEx';
 import NavFooterEx from '../components/FooterEx';
-import '../pages/styles.scss';
 import { useRouter } from 'next/router';
-
-
 
 import {
   Root,
@@ -26,7 +22,7 @@ import {
   getFooter,
   getMuiTreasuryScheme,
 } from '@mui-treasury/layout';
-import {  NavContentMockUp } from '@mui-treasury/mockup/layout';
+import { CatList } from '../components/catlistquery';
 import NestedMenu from '../components/NestedMenu';
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
@@ -42,30 +38,26 @@ const muiTreasuryScheme = getMuiTreasuryScheme(styled);
 muiTreasuryScheme.enableAutoCollapse('primarySidebar', 'md');
 
 muiTreasuryScheme.configureHeader((builder) => {
-  builder
-    .create('header')
-    .registerConfig('xs', {
-      position: 'sticky',
-      initialHeight: 64,
-    })
-    .registerConfig('md', {
+  builder.create('header').registerConfig('xs', {
+    position: 'sticky',
+    initialHeight: 64,
+  });
+  /*.registerConfig('md', {
       position: 'relative', // won't stick to top when scroll down
       clipped: true,
       initialHeight: 64,
-    });
+    });*/
 });
-muiTreasuryScheme.configureInsetSidebar((builder) => { 
-   
-  builder.create('insetSidebar', { anchor: 'left' }).registerFixedConfig('sm', {
-    width: '20rem', // recommended width
-    headerMagnetEnabled: true,     
-  });
 
-});
 const Layoutnx = ({ children }) => {
-
   const router = useRouter();
-
+  muiTreasuryScheme.configureInsetSidebar((builder) => {
+    builder.create('insetSidebar', { anchor: 'left' }).registerStickyConfig('md', {
+      width: 320, // recommended width
+      headerMagnetEnabled: false,
+    });
+    
+  });
   muiTreasuryScheme.configureEdgeSidebar((builder) => {
     builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('xl', {
       width: '20%', // recommended width
@@ -93,21 +85,19 @@ const Layoutnx = ({ children }) => {
     });
     if (router.pathname === '/') {
       builder.hide('primarySidebar', false);
-    
     }
     if (router.pathname === '/cars') {
       builder.hide('primarySidebar', false);
     }
+
     if (router.pathname === '/catalog') {
       builder.hide('primarySidebar', false);
     }
   });
- 
-  
 
   return (
     <StylesProvider injectFirst>
-      <CssBaseline />
+     
       <Root theme={theme} scheme={muiTreasuryScheme}>
         {({ state: { sidebar } }) => (
           <>
@@ -120,21 +110,25 @@ const Layoutnx = ({ children }) => {
             <DrawerSidebar sidebarId="primarySidebar">
               <SidebarContent className="sidebar_cont">
                 <NestedMenu />
+                
               </SidebarContent>
               <CollapseBtn />
             </DrawerSidebar>
             <Content>
-              <InsetContainer 
+              <InsetContainer
+                className={'content__block'} 
                 maxWidth={'xl'}
-                leftSidebar={
-                  <InsetSidebar sidebarId={'insetSidebar'}>
-                    <Box mt={2} />
-                    <NavContentMockUp />
+                leftSidebar=
+                  {router.pathname !== "/catalog" && (
+                    <InsetSidebar  sidebarId={'insetSidebar'}>
+                    <Box pt={20}></Box>
+                    <CatList pt={10}/>
+                    <Box pb={20}></Box>
                   </InsetSidebar>
-                }
+                  )}
+                
               >
-                <Box>{children}</Box>
-               
+                <Box p={4}>{children}</Box>
               </InsetContainer>
             </Content>
             <Footer>

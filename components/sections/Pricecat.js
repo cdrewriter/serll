@@ -95,8 +95,12 @@ const Carous = () => {
       }
     }*/
     return (
-      <>
+      <> 
+   
+
+   <Box m={0} className="pricelist__block down">
         <Container maxWidth="lg">
+       
           <Box
             className={classes.root}
             display="flex"
@@ -129,8 +133,9 @@ const Carous = () => {
             </Box>
           </Box>
           <PriceCategories priceCategories={allItemCategories} />
+         
         </Container>
-
+        </Box>
         
       </>
     );

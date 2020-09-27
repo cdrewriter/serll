@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { pricecategoryPropTypes } from '../../types/PriceCat';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     minWidth: '100%',
+    backgroundColor: '#f4f4f487',
+    border: '0.125rem solid #e3e3e3',
+    borderRadius: 0,
   },
   badge: {},
   list: {
@@ -29,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
   listitemtext: {
     flex: 1,
     marginRight: '1rem',
-    fontWeight: 500,
+
+    fontSize: '1rem',
+    fontWeight: 700,
+lineHeight: 1,
+textDecoration: 'underline',
   },
   listitem: {
     minHeight: '5rem',
@@ -46,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
+function ListItemTextN(props) {
+  return <Typography  component="a" variant="h2" {...props} />;
+}
 const PriceCategories = ({ priceCategories, activeKey }) => {
   const classes = useStyles();
   const items = [];
@@ -54,16 +63,16 @@ const PriceCategories = ({ priceCategories, activeKey }) => {
     const cat = priceCategories[i];
     const active = activeKey === cat.slug;
     items.push(
-      <Grid item key={cat.id} xs={12} md={6} lg={4} className={classes.list}>
-        <Paper elevation={4} className={classes.paper}>
+      <Grid item key={cat.id} xs={12} md={6} lg={6} className={classes.list}>
+        <Paper elevation={0} className={classes.paper}>
           <ListItem button className={classes.listitem}>
-            <Link href={`/catalog/${cat.slug}`} slug={cat.id}>
+           
               {active ? (
-                cat.name
+                 <Link href={`/catalog/${cat.slug}`} className="active">{cat.name}</Link>
               ) : (
-                <ListItemText color="primary.main" className={classes.listitemtext} primary={cat.name} />
+                <Link href={`/catalog/${cat.slug}`} >{cat.name}</Link>
               )}
-            </Link>
+          
           </ListItem>
         </Paper>
       </Grid>

@@ -34,9 +34,9 @@ const data = [
 ];
 
 const Demo = () => (
-
+  <>
     <ParallaxCarousel data={data} />
-
+</>
 );
 
 export default Demo;

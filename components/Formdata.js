@@ -1,18 +1,15 @@
-/* eslint-disable no-unused-vars */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
-import Button from '@material-ui/core/Button';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
+import { Box, Paper, Container, TextField, Button } from '@material-ui/core';
 import Select from './forms/Select';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { grey } from '@material-ui/core/colors';
 import BlockHead from '../templates/BlockHead';
+import theme from '../templates/theme';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
@@ -50,91 +47,103 @@ function HomeIcon(props) {
     </SvgIcon>
   );
 }
-const Formdata = (props) => {
+const Formdata = () => {
   const classes = useStyles();
   return (
-    <form className={classes.root} css={{ display: 'flex' }} noValidate autoComplete="off" spacing={20}>
-      <Grid container spacing={2} direction="row" justify="center" alignItems="stretch">
-        <Grid item lg={4} md={8}>
-          <Box
-            display="flex"
-            flexDirection="column"
-           
-            alignItems="center"
-            justifyContent="space-evenly"
-           
-           
-          >
-            <div className={classes.iconlogo}>
-              
-              <div className={classes.titlebox}>
-             
-              <BlockHead heading=" Техника под заказ" subheading="  по вашим требованиям" justifyContent="center">
-              <HomeIcon style={{ fontSize: '4rem', marginRight: '2rem', color: grey[400] }} viewBox="0 0 80 91.429" />
-          </BlockHead> 
-                <Box py={2}>
-                  <Typography variant="subtitle2" fontSize="small" style={{ lineHeight: 1, paddingBottom: '0.5rem' }}>
-                    У нас есть все разрешения и документы для переоборудования автомобилей.
-                  </Typography>
-                  <Typography variant="subtitle2" style={{ lineHeight: 1 }}>
-                    Заполните форму и мы начнем подбирать Вам технику
-                  </Typography>
+    <Box className="pricelist__block up">
+      <Container maxWidth="lg">
+        <Paper css={{ padding: '2rem', margin: 0 }} elevation={12}>
+          <form className={classes.root} css={{ display: 'flex' }} noValidate autoComplete="off" spacing={20}>
+            <Grid container spacing={2} direction="row" justify="center" alignItems="stretch">
+              <Grid item lg={4} md={8}>
+                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="space-evenly">
+                  <div className={classes.iconlogo}>
+                    <div className={classes.titlebox}>
+                      <BlockHead
+                        heading=" Техника под заказ"
+                        subheading="  по вашим требованиям"
+                        justifyContent="center"
+                      >
+                        <HomeIcon
+                          style={{ fontSize: '4rem', marginRight: '2rem', color: grey[400] }}
+                          viewBox="0 0 80 91.429"
+                        />
+                      </BlockHead>
+                      <Box py={2}>
+                        <Typography
+                          variant="subtitle2"
+                          fontSize="small"
+                          style={{ lineHeight: 1, paddingBottom: '0.5rem' }}
+                        >
+                          У нас есть все разрешения и документы для переоборудования автомобилей.
+                        </Typography>
+                        <Typography variant="subtitle2" style={{ lineHeight: 1 }}>
+                          Заполните форму и мы начнем подбирать Вам технику
+                        </Typography>
+                      </Box>
+                    </div>
+                  </div>
                 </Box>
-              </div>
-            </div>
-          </Box>
-        </Grid>
-        <Grid item lg={4}>
-          <Grid container spacing={2}>
-            <Grid sm={6} item>
-              <Select label="Тип кузова" />
+              </Grid>
+              <Grid item lg={4}>
+                <Grid container spacing={2}>
+                  <Grid sm={6} item>
+                    <Select label="Тип кузова" />
+                  </Grid>
+                  <Grid sm={6} item>
+                    <Select label="Год выпуска " />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      css={{
+                        minWidth: '100%',
+                      }}
+                      id="outlined-multiline-static"
+                      label="Подробнее"
+                      multiline
+                      rows={4}
+                      placeholder="Требования к технике, подробнее раскажите... "
+                      defaultValue=""
+                      variant="outlined"
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item md={4}>
+                <Box
+                  className={classes.center}
+                  display="flex"
+                  flexDirection="column"
+                  alignContent="center"
+                  alignItems="center"
+                  justifyContent="space-evenly"
+                >
+                  <Box m={4}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      className={classes.bbtn}
+                      color="secondary"
+                      disableElevation
+                    >
+                      ОТПРАВИТЬ ЗАЯВКУ
+                    </Button>
+                  </Box>
+                  <Box m={2}>
+                    <Typography variant="body1">или свяжитесь с нами по телефону</Typography>
+                  </Box>
+                  <Box className={classes.phone}>
+                    <Typography noWrap color={'textPrimary'} variant="h4" className={classes.header}>
+                      +7 (351) 777 78 65
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid sm={6} item>
-              <Select label="Год выпуска " />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                css={{
-                  minWidth: '100%',
-                }}
-                id="outlined-multiline-static"
-                label="Подробнее"
-                multiline
-                rows={4}
-                placeholder="Требования к технике, подробнее раскажите... "
-                defaultValue=""
-                variant="outlined"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item md={4}>
-          <Box
-            className={classes.center}
-            display="flex"
-            flexDirection="column"
-            alignContent="center"
-                    alignItems="center"
-            justifyContent="space-evenly"
-            
-          >
-            <Box m={4}>
-              <Button variant="contained" size="large" className={classes.bbtn} color="secondary" disableElevation>
-                ОТПРАВИТЬ ЗАЯВКУ
-              </Button>
-            </Box>
-            <Box m={2}>
-              <Typography variant="body1">или свяжитесь с нами по телефону</Typography>
-            </Box>
-            <Box className={classes.phone}>
-              <Typography noWrap color={'textPrimary'} variant="h4" className={classes.header}>
-                +7 (351) 777 78 65
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </form>
+          </form>
+        </Paper>
+      </Container>
+    </Box>
   );
 };
 

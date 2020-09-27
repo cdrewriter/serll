@@ -7,10 +7,10 @@ import PropTypes, { array } from 'prop-types';
 import DotIndicator from '@mui-treasury/components/indicator/dot';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
-import Utils from '../../utils';
 import { Box, Container, SvgIcon } from '@material-ui/core';
+import CircularIndeterminate from '../../components/loading';
 import { useGraphQL } from 'graphql-react';
-
+import TextFieldIndex from '../indextext.js';
 const carousels = {
   breakPoints: [
     { width: 1, itemsToShow: 2 },
@@ -21,29 +21,28 @@ const carousels = {
     { width: 1750, itemsToShow: 5 },
   ],
 };
-
-const Carous = () => {
-  const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    height: '440px',
+  },
+  iconlogo: {
+    fontSize: '4rem',
+    height: '4rem',
+    width: '4rem',
+    marginRight: '2rem',
+    color: grey[300],
+  },
+  Icon: {
     root: {
-      width: '100%',
-      height: '440px',
-    },
-    iconlogo: {
-      fontSize: '4rem',
-      height: '4rem',
-      width: '4rem',
-      marginRight: '2rem',
-      color: grey[300],
-    },
-    Icon: {
-      root: {
-        '& > .fa': {
-          margin: theme.spacing(2),
-        },
+      '& > .fa': {
+        margin: theme.spacing(2),
       },
     },
-  }));
+  },
+}));
 
+const Carous = () => {
   const classes = useStyles();
   function HomeIcon(props) {
     return (
@@ -60,43 +59,43 @@ const Carous = () => {
           />
         </g>
       </SvgIcon>
-    );  }
-  
-  const result= useGraphQL({
+    );
+  }
+
+  const result = useGraphQL({
     fetchOptionsOverride(options) {
       options.url = `${process.browser ? '' : 'http://localhost:3000'}/admin/api`;
     },
-    
+
     operation: {
       query: /* GraphQL */ `
-      query($isEnabled: Boolean) {
-        allItemCars(where: { isEnabled: $isEnabled }) {
-          name
-          id
-          pricevalue
-          description
-          isEnabled
-          categories {
-            slug
+        query($isEnabled: Boolean) {
+          allItemCars(where: { isEnabled: $isEnabled }) {
             name
             id
+            pricevalue
+            description
+            isEnabled
+            categories {
+              slug
+              name
+              id
+            }
+            photos {
+              publicUrl
+            }
+            netweight
+            engine
           }
-          photos {      
-            publicUrl
-          }
-          netweight
-          engine
         }
-      }
-    `,
-    variables: { isEnabled: true },
- 
+      `,
+      variables: { isEnabled: true },
     },
     loadOnMount: true,
     loadOnReload: true,
     loadOnReset: true,
   });
-  const { cacheValue } = result;
+  const { loading, cacheValue } = result;
 
   if (cacheValue && cacheValue.data) {
     const { allItemCars } = cacheValue.data;
@@ -105,22 +104,18 @@ const Carous = () => {
       for (let i = 0; i < allItemCars.length; ++i) {
         cards.push(
           <>
-           <BlogCard key={i} props={allItemCars[i]} />
-           
+            <BlogCard key={i} props={allItemCars[i]} />
           </>
         );
       }
     }
     return (
-      <>
+      <Box boxShadow={4} position="relative" pb={30}>
         <Container fixed>
           <Box p={4}>
-          <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center">
-            <HomeIcon
-              className={classes.iconlogo}              
-              viewBox="0 0 80 91.429"
-            />
-          </BlockHead>
+            <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center">
+              <HomeIcon className={classes.iconlogo} viewBox="0 0 80 91.429" />
+            </BlockHead>
           </Box>
         </Container>
         <Carousel
@@ -140,13 +135,11 @@ const Carous = () => {
         >
           {cards}
         </Carousel>
-      </>
+        <TextFieldIndex />
+      </Box>
     );
-    
-    
-  } 
-  return <div className="loadingss">Loadings...</div>;
-  
+  }
+  return loading ? <CircularIndeterminate /> : '';
 };
 
 Carous.propTypes = {};

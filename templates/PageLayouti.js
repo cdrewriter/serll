@@ -1,16 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { StylesProvider } from '@material-ui/core/styles';
-import { Toolbar, Box } from '@material-ui/core';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import ReactDOM from 'react-dom';
+import  Toolbar  from '@material-ui/core/Toolbar';
 import PropTypes from 'prop-types';
 import theme from './theme';
 import HeaderEx from '../components/HeaderEx';
 import NavFooterEx from '../components/FooterEx';
-import { useGraphQL } from 'graphql-react';
 import { useRouter } from 'next/router';
-import '../pages/styles.scss';
+import { StylesProvider } from '@material-ui/core/styles';
 
 
 import {
@@ -24,38 +20,38 @@ import {
   getFooter,
   getMuiTreasuryScheme,
 } from '@mui-treasury/layout';
-import { ContentMockUp, FooterMockUp, NavContentMockUp } from '@mui-treasury/mockup/layout';
+
 import NestedMenu from '../components/NestedMenu';
+
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
 const SidebarTrigger = getSidebarTrigger(styled);
 const SidebarContent = getSidebarContent(styled);
 const CollapseBtn = getCollapseBtn(styled);
-
 const Content = getContent(styled);
 const Footer = getFooter(styled);
 const muiTreasuryScheme = getMuiTreasuryScheme(styled);
 
-muiTreasuryScheme.enableAutoCollapse('primarySidebar', 'md');
 
-muiTreasuryScheme.configureHeader((builder) => {
-  builder
-    .create('header')
-    .registerConfig('xs', {
-      position: 'sticky',
-      initialHeight: 64,
-    })
-    .registerConfig('md', {
-      position: 'relative', // won't stick to top when scroll down
-      clipped: true,
-      initialHeight: 64,
-    });
-});
+
 
 const Layouti = ({ children }) => {
 
   const router = useRouter();
-
+  muiTreasuryScheme.configureHeader((builder) => {
+    builder
+      .create('header')
+      .registerConfig('xs', {
+        position: 'sticky',
+        initialHeight: 64,
+      })
+      /*.registerConfig('md', {
+        position: 'relative', // won't stick to top when scroll down
+        clipped: true,
+        initialHeight: 64,
+      });*/
+  });
+  muiTreasuryScheme.enableAutoCollapse('primarySidebar', 'md');
   muiTreasuryScheme.configureEdgeSidebar((builder) => {
     builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('xl', {
       width: '20%', // recommended width
@@ -65,24 +61,9 @@ const Layouti = ({ children }) => {
       autoExpanded: true,
       persistentBehavior: 'fit',
     });
-    builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('lg', {
-      width: '22.5%', // recommended width
-      collapsible: true,
-      collapsedWidth: 64,
-      headerMagnetEnabled: true,
-      autoExpanded: true,
-      persistentBehavior: 'fit',
-    });
-    builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('md', {
-      width: '22.5%', // recommended width
-      collapsible: true,
-      collapsedWidth: 64,
-      headerMagnetEnabled: true,
-      autoExpanded: true,
-      persistentBehavior: 'fit',
-    });
+
     if (router.pathname === '/') {
-      builder.hide('primarySidebar', false);    
+      builder.hide('primarySidebar', true);    
     }
     if (router.pathname === '/cars') {
       builder.hide('primarySidebar', false);
@@ -91,23 +72,19 @@ const Layouti = ({ children }) => {
       builder.hide('primarySidebar', false);
     }
   });
- 
-  
-
   return (
     <StylesProvider injectFirst>
-      <CssBaseline />
-      <Root theme={theme} scheme={muiTreasuryScheme}>
-        {({ state: { sidebar } }) => (
-          <>
+    
+    <Root theme={theme} scheme={muiTreasuryScheme}>  
+  
             <Header>
               <Toolbar>
-                <SidebarTrigger sidebarId="primarySidebar" />
+                <SidebarTrigger sidebarId={'primarySidebar'} />
                 <HeaderEx />
               </Toolbar>
             </Header>
-            <DrawerSidebar sidebarId="primarySidebar">
-              <SidebarContent className="sidebar_cont">
+            <DrawerSidebar sidebarId={'primarySidebar'}>
+              <SidebarContent  sidebarId={'primarySidebar'} className="sidebar_cont">
                 <NestedMenu />
               </SidebarContent>
               <CollapseBtn />
@@ -121,10 +98,10 @@ const Layouti = ({ children }) => {
             <Footer>
               <NavFooterEx />
             </Footer>
-          </>
-        )}
+ 
       </Root>
-    </StylesProvider>
+      </StylesProvider>
+
   );
 };
 export default Layouti;

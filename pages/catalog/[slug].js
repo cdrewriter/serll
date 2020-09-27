@@ -11,6 +11,7 @@ import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import Header from '../../components/header';
 import PageLayout from '../../templates/PageLayoutm';
+import { makeStyles } from '@material-ui/core/styles';
 /*
 export async function getServerSideProps() {
   const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/priceapi`)
@@ -20,6 +21,23 @@ export async function getServerSideProps() {
   return { props: { data } }
 }
 */
+
+
+const useStyles = makeStyles((theme) => ({
+  pricebox: {
+    padding: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      padding: '2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: '4rem',
+    },
+    [theme.breakpoints.up('lg')]: {
+      padding: '8rem',
+    },
+  },
+}));
+
 function SparePartsIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -53,7 +71,7 @@ function Headdate({ data }) {
 const BlogDetail = () => {
   const { query } = useRouter();
   const { slug } = query;
-
+  const classes = useStyles();
   const result = useGraphQL({
     fetchOptionsOverride(options) {
       options.url = `${process.browser ? '' : 'http://localhost:3000'}/admin/api`;
@@ -85,8 +103,8 @@ const BlogDetail = () => {
     loadOnReload: true,
     loadOnReset: true,
   });
+  const { loading, cacheValue } = result;
 
-  const { cacheValue } = result;
   if (cacheValue && cacheValue.data) {
     const { allItemPrices } = cacheValue.data;
     if (!allItemPrices.length) {
@@ -97,58 +115,57 @@ const BlogDetail = () => {
     const post = allItemPrices[0];
     return (
       <>
-         <PageLayout id="catalog-price">
-        <Box display="flex" flexDirection="column">
-          <Breadcrumbs
-            pagePath={post.categories.slug}
-            pageTitle={post.categories.name}
-            parts={[
-              {
-                title: 'Главная',
-                href: '/',
-              },
-              {
-                title: 'Каталог',
-                href: '/catalog',
-              },
-            ]}
-          />
-          <Box m={1} style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <SparePartsIcon
-              style={{
-                marginLeft: '50vw',
-                marginRight: '2rem',
-                opacity: 0.4,
-                zIndex: -1,
-                transform: 'scale(5) translateY(0rem)',
-                color: grey[300],
-              }}
-              viewBox="0 0 80 91.429"
-            />
-            <BlockHead
-              heading={post.categories.name}
-              subheading={post.categories.description}
-              justifyContent="center"
-            />
-          </Box>
+        <PageLayout id="catalog-price">
         
-          {/*<Grid container>
+            <Breadcrumbs
+              pagePath={post.categories.slug}
+              pageTitle={post.categories.name}
+              parts={[
+                {
+                  title: 'Главная',
+                  href: '/',
+                },
+                {
+                  title: 'Каталог',
+                  href: '/catalog',
+                },
+              ]}
+            />
+            <Box m={1} style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <SparePartsIcon
+                style={{
+                  marginLeft: '50vw',
+                  marginRight: '2rem',
+                  opacity: 0.4,
+                  zIndex: -1,
+                  transform: 'scale(5) translateY(0rem)',
+                  color: grey[300],
+                }}
+                viewBox="0 0 80 91.429"
+              />
+              <BlockHead
+                heading={post.categories.name}
+                subheading={post.categories.description}
+                justifyContent="center"
+              />
+            </Box>
+
+            {/*<Grid container>
             <Grid item xs={3}>
               <PriceCategories priceCategories={allItemCategories} activeKey={slug} />
             </Grid>
           <Grid item xs={9}>*/}
-          <Paper elevation={0}>
-            <Tabll data={allItemPrices} />
-          </Paper>
-          {/*</Grid>
+            <Paper elevation={0}>
+              <Tabll data={allItemPrices} />
+            </Paper>
+            {/*</Grid>
           </Grid>*/}
-        </Box>
+
         </PageLayout>
       </>
     );
   }
-
-  return <CircularIndeterminate />;
+  return loading ? <CircularIndeterminate /> : '';
 };
 
 BlogDetail.propTypes = {

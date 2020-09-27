@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import theme from '../../templates/theme';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,26 +26,22 @@ export default function SimpleSelect(props) {
   };
 
   return (
-   
-      
-      <FormControl variant="outlined" m={0}  p={0} spacing={2} fullWidth className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">{props.label}</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={age}
-          onChange={handleChange}
-          label="Age"
-        >
-          <MenuItem value="">
-            <em>{props.valuedef}выбрать</em>
-          </MenuItem>
-          <MenuItem value={10}>{props.valued}АВТОЦИСТЕРНЫ</MenuItem>
-          <MenuItem value={20}>{props.value}БОРТОВЫЕ</MenuItem>
-          <MenuItem value={30}>{props.valuedef}САМОСВАЛЫ</MenuItem>
-        </Select>
-      </FormControl>
-     
-   
+    <FormControl variant="outlined" m={0} p={0} spacing={2} fullWidth className={classes.formControl}>
+      <InputLabel id="demo-simple-select-outlined-label">{props.label}</InputLabel>
+      <Select
+        labelId="demo-simple-select-outlined-label"
+        id="demo-simple-select-outlined"
+        value={age}
+        onChange={handleChange}
+        label="Age"
+      >
+        <MenuItem value="">
+          <em>{props.valuedef}выбрать</em>
+        </MenuItem>
+        <MenuItem value={10}>{props.valued}АВТОЦИСТЕРНЫ</MenuItem>
+        <MenuItem value={20}>{props.value}БОРТОВЫЕ</MenuItem>
+        <MenuItem value={30}>{props.valuedef}САМОСВАЛЫ</MenuItem>
+      </Select>
+    </FormControl>
   );
 }

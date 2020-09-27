@@ -10,6 +10,7 @@ import PriceItem from '../../components/price/PriceItem';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import PageLayout from '../../templates/PageLayoutm';
+import CircularIndeterminate from '../../components/loading';
 /*
 export async function getServerSideProps() {
   const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/carcatapi`)
@@ -71,7 +72,7 @@ const CarsList = () => {
     loadOnReload: true,
     loadOnReset: true,
   });
-  const { cacheValue } = result;
+  const { loading, cacheValue } = result;
 
   if (cacheValue && cacheValue.data) {
     const { allItemCarCategories } = cacheValue.data;
@@ -118,7 +119,7 @@ const CarsList = () => {
       </>
     );
   }
-  return <div className="loadingss">Loadings...</div>;
+  return loading ? <CircularIndeterminate /> : '';
 };
 
 CarsList.propTypes = {};

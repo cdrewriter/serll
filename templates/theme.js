@@ -4,6 +4,7 @@ import SFBoldwoff2 from './SFProDisplayBold.woff2';
 import SFBoldwoff from './SFProDisplayBold.woff';
 import SFRegwoff2 from './SFProDisplayRegular.woff2';
 import SFRegwoff from './SFProDisplayRegular.woff';
+
 const SFBold = {
   fontFamily: 'SF Pro Display',
   fontStyle: 'normal',
