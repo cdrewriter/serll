@@ -13,8 +13,8 @@ import { useGraphQL } from 'graphql-react';
 import TextFieldIndex from '../indextext.js';
 const carousels = {
   breakPoints: [
-    { width: 1, itemsToShow: 2 },
-    { width: 550, itemsToShow: 3, itemsToScroll: 2 },
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 1, itemsToScroll: 1 },
     { width: 850, itemsToShow: 4 },
     { width: 1150, itemsToShow: 4, itemsToScroll: 2 },
     { width: 1450, itemsToShow: 5 },
@@ -110,7 +110,7 @@ const Carous = () => {
       }
     }
     return (
-      <Box boxShadow={4} position="relative" pb={30}>
+      <Box className="carouselmain" boxShadow={4} position="relative" pb={30}>
         <Container fixed>
           <Box p={4}>
             <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center">
@@ -119,15 +119,15 @@ const Carous = () => {
           </Box>
         </Container>
         <Carousel
-          itemPadding={[26, 4]}
-          css={{ margin: 'auto', minHeight: 'initial' }}
+          itemPadding={[40, 16]}
+          css={{ margin: 'auto', minHeight: '32rem'}}
           breakPoints={carousels.breakPoints}
           renderPagination={({ pages, activePage, onClick }) => {
             return (
               <Box direction="row">
                 {pages.map((page) => {
                   const isActivePage = activePage === page;
-                  return <DotIndicator key={page} onClick={() => onClick(page)} active={isActivePage} />;
+                  return <DotIndicator className="dots" key={page} onClick={() => onClick(page)} active={isActivePage} />;
                 })}
               </Box>
             );

@@ -2,8 +2,9 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import theme from '../templates/theme';
 
-const getMuiTheme = ({theme}) =>
+const getMuiTheme = () =>
   createMuiTheme({
     overrides: {
       MuiPaper: {

@@ -14,8 +14,10 @@ export default function Home() {
       <PageLayout id="catalog-cars">
         <Demo className="fh" />
         <Carous className="carouselmain" />
-        <Formdata />
+        <Box className="pricelist__block up">
+        <Formdata className="formdata"/>
         <PriceSection />
+        </Box>
         <ServiceBlock />
       </PageLayout>
     </React.Fragment>

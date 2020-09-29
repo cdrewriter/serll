@@ -12,6 +12,7 @@ import { grey } from '@material-ui/core/colors';
 import Header from '../../components/header';
 import PageLayout from '../../templates/PageLayoutm';
 import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../templates/theme';
 /*
 export async function getServerSideProps() {
   const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/priceapi`)
@@ -23,17 +24,17 @@ export async function getServerSideProps() {
 */
 
 
-const useStyles = makeStyles((theme) => ({
-  pricebox: {
-    padding: theme.spacing(1),
+const useStyles = makeStyles(() => ({
+  root: {  
+    padding: 0,
     [theme.breakpoints.down('sm')]: {
       padding: '2rem',
     },
     [theme.breakpoints.up('md')]: {
-      padding: '4rem',
+      padding: '2rem',
     },
     [theme.breakpoints.up('lg')]: {
-      padding: '8rem',
+      padding: '2rem',
     },
   },
 }));
@@ -131,7 +132,7 @@ const BlogDetail = () => {
                 },
               ]}
             />
-            <Box m={1} style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <Box m={1}  className={classes.root} style={{ display: 'flex', flexWrap: 'wrap' }}>
               <SparePartsIcon
                 style={{
                   marginLeft: '50vw',

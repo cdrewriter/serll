@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BreadcrumbJsonLd } from 'next-seo';
 import Config from '../../configs';
-import { Breadcrumbs } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
+import { Breadcrumbs, Typography } from '@material-ui/core';
+import Link from 'next/link';
 //import { Breadcrumb } from 'react-bootstrap';
 
 //import './Breadcrumbs.scss';
@@ -16,8 +16,8 @@ const Breadcrumb = ({ pageTitle, pagePath, parts }) => {
 
   for (let i = 0; i < parts.length; ++i) {
     breadcrumbItems.push(
-      <Link key={i} href={parts[i].href}>
-        {parts[i].title}
+      <Link key={i} href={parts[i].href} passHref>
+      {parts[i].title}
       </Link>
     );
     itemListElements.push({
@@ -38,7 +38,8 @@ const Breadcrumb = ({ pageTitle, pagePath, parts }) => {
       <BreadcrumbJsonLd itemListElements={itemListElements} />
       <Breadcrumbs className="breadcrumbs">
         {breadcrumbItems}
-        {!!pageTitle && <Link active="true">{pageTitle}</Link>}
+        {!!pageTitle && <Typography component="a" className=
+        "active">{pageTitle}</Typography>}
       </Breadcrumbs>
     </React.Fragment>
   );

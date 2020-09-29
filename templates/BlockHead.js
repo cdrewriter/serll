@@ -36,7 +36,7 @@ const BlockHead = (props) => {
   return (
     <Box
       className={classes.root}
-      display="flex"
+      display="inline-flex"
       flexDirection="row"
       alignItems="left"
       justifyContent="start"

@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { pricecategoryPropTypes } from '../../types/PriceCat';
 import { makeStyles } from '@material-ui/core/styles';
 import { ListGroup } from 'react-bootstrap';
+import BgCard from '../../components/bgcard';
 import { Row, Item } from '@mui-treasury/components/flex';
 import { Info, InfoTitle, InfoSubtitle, InfoCaption } from '@mui-treasury/components/info';
 import { useDynamicAvatarStyles } from '@mui-treasury/styles/avatar/dynamic';
@@ -15,10 +16,14 @@ import { usePopularInfoStyles } from '@mui-treasury/styles/info/popular';
 import Avatar from '@material-ui/core/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDotCircle } from '@fortawesome/free-regular-svg-icons';
-import { Button, Paper } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { useGutterBorderedGridStyles } from '@mui-treasury/styles/grid/gutterBordered';
+import MainCard from '../cardsflip/MainCard'
+import Card from '../../components/cardssc/Card';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,19 +36,39 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     minWidth: '100%',
   },
-  badge: {},
+  badge: {
+    paddingLeft: '1rem',
+    display: 'initial',
+  },
   list: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
+    flexFlow: 'column',
+
   },
-  listitemtext: {
-    flex: 1,
+  listitemtext: {    
     marginRight: '1rem',
-    fontWeight: 500,
-  },
+    position: 'relative',
+    fontWeight: 700,
+    color: 'grey',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    letterSpacing: '0.1rem',
+    '&:after': {
+      content: '" "',
+      height: '2px',
+      width: '100%',
+      backgroundColor: '#8080804d',
+      position: 'absolute',
+      bottom: '0px',
+      left: 0,
+    },
+  },  
+  
   listitem: {
     minHeight: '5rem',
     height: '100%',
+    fontSize: '2rem',
   },
   'listitem:nthChild(3n)': {
     borderLeft: '2px solid blue',
@@ -58,22 +83,66 @@ const useStyles = makeStyles((theme) => ({
 }));
 const StyledBadge = withStyles((theme) => ({
   badge: {
-    right: 8,
-    top: 0,
+    right: 16,
+    top: '-16px',
     bottom: 0,
-    height: '2.25rem',
-    width: '2.25rem',
+    height: '1.5rem',
+    width: '1.5rem',
     borderRadius: '2.25rem',
-    backgroundColor: '#efefef',
-    border: '4px solid #efefef',
-    color: '0000ff66',
+    backgroundColor: 'rgba(9, 30, 66, 0.06)',
+    border: '1px solid transparent',
+    color: '#f44336',
+    fontSize: '1rem',
     padding: '0.5rem',
   },
 }))(Badge);
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
+function ListItemLink(subitem) {
+  //console.log(subitem.name);
+  const { name, id } = subitem;
+  return name, id;
 }
+
+function SubItems({props, category}) {
+
+    const allsubitems = [];
+    for (let i = 0; i < props.length; ++i) {
+      allsubitems.push(   
+        <Card key={props[i].id} engine={props[i].engine} year={props[i].year} name={props[i].name} category={category} price={props[i].pricevalue} image={props[i].photos.publicUrl} data={props[i]} />
+        );
+    }
+    return (
+      <React.Fragment>
+     
+          
+        {allsubitems}
+       
+      </React.Fragment> 
+  
+  );
+};
+
+
+const AllLinks = ({props, slug}) => {  
+  //console.log(props.length);
+  const subitems = [];
+  if (props && props.length) {
+    for (let i = 0; i < props.length; ++i) {
+      subitems.push(    
+          <MainCard key={props[i].id} href={`/cars/${slug}/${props[i].slug}`} data={props[i]}/>
+      );
+    }
+  }
+  return (
+    <React.Fragment>
+      <Box className='App'>
+        
+      {subitems}
+      </Box>
+    </React.Fragment>
+  );
+};
+
 
 const PriceCategories = ({ priceCategories, activeKey }) => {
   const classes = useStyles();
@@ -90,24 +159,45 @@ const PriceCategories = ({ priceCategories, activeKey }) => {
       radius: 8,
       maxWidth: '1rem',
     });
+    
     items.push(
-      <Grid item key={cat.id} xs={12} md={6} lg={4} className={classes.list}>
-        <Paper elevation={4} className={classes.paper}>
-          <ListItem button className={classes.listitem}>
+
+      
+      <Grid item key={cat.id} xs={12} md={12} lg={12} className={classes.list}>
+        
+        <Typography
+        variant="h4"
+        component="h2"
+        style={{ lineHeight: 1, textTransform: 'uppercase', }}
+        color="primary"
+      >
+          <ListItem className={classes.listitem}>
             <Link href={`/cars/${cat.slug}`}>
               {active ? (
-                cat.name
+               cat.names
               ) : (
-                <ListItemText color="primary.main" className={classes.listitemtext} primary={cat.name} />
+                <a className={classes.listitemtext}>{cat.name}</a>
               )}
             </Link>
-            <StyledBadge badgeContent={1423} max={99999} className={classes.badge} p={2} />
+            
+            
+            
+            <StyledBadge badgeContent={cat._itemsMeta.count} max={99999} className={classes.badge} p={2} />
+            <hr />
           </ListItem>
-        </Paper>
+          </Typography>
+          <Box className="subitems">
+          
+          <SubItems  props={cat.items} category={cat.name} />
+         {/*<AllLinks props={cat.items} slug={cat.slug} qty={cat._itemsMeta.count} />*/}
+          </Box>
+         
+       
       </Grid>
     );
   }
   return (
+    
     <Grid container justify="space-evenly" spacing={4} direction="row" alignItems="stretch" className="post-categories">
       {items}
     </Grid>

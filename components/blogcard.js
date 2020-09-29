@@ -12,10 +12,11 @@ import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 343,
-    width: '100%',
+    width: 'calc(100% - 1rem)',
     margin: 'auto',
     borderRadius: 12,
     padding: 12,
+    minHeight: '50.5vh',
   },
   media: {
     borderRadius: 6,

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
 import Utils from '../../utils';
-import { Box, SvgIcon } from '@material-ui/core';
+import BgCard from '../../components/bgcard';
+import { Box, Container, SvgIcon } from '@material-ui/core';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import PriceCategories from '../../components/sidebars/PriceCategoriesMainT';
 import PriceItem from '../../components/price/PriceItem';
@@ -11,6 +12,7 @@ import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import PageLayout from '../../templates/PageLayoutm';
 import CircularIndeterminate from '../../components/loading';
+
 /*
 export async function getServerSideProps() {
   const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/carcatapi`)
@@ -59,13 +61,29 @@ const CarsList = () => {
             slug
             id
             description
+            items {
+              name
+              slug
+              id
+              year
+              pricevalue
+              description
+              photos {
+                publicUrl
+              }
+              engine
+              chassis
+            }
+            _itemsMeta {
+              count
+            }
           }
         }
       `,
       variables: {
-        where: priceQueryObj,
-        first: limit,
-        skip: (page - 1) * limit,
+        postWhere: {
+          categories: { slug: slug },
+        },
       },
     },
     loadOnMount: true,
@@ -73,7 +91,7 @@ const CarsList = () => {
     loadOnReset: true,
   });
   const { loading, cacheValue } = result;
-
+  //console.log(result);
   if (cacheValue && cacheValue.data) {
     const { allItemCarCategories } = cacheValue.data;
     const priceItems = [];
@@ -81,40 +99,49 @@ const CarsList = () => {
       for (let i = 0; i < allItemCarCategories.length; ++i) {
         priceItems.push(
           <>
-            <PriceItem key={i} post={allItemCarCategories[i]} />
+            <BgCard key={i} post={allItemCarCategories[i]} />
           </>
         );
       }
     }
     return (
       <>
-       <PageLayout id="catalog-cars">
-        <Box display="flex" flexDirection="column">
-          <Breadcrumbs
-            pageTitle="Каталог Техники"
-            pagePath="/cars"
-            parts={[
-              {
-                title: 'Главная',
-                href: '/',
-              },
-            ]}
-          />
-
-          <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <SparePartsIcon
-              style={{
-                marginLeft: '2rem',
-                marginRight: '2rem',
-                transform: 'scale(2.5) translateY(0.5rem)',
-                color: grey[300],
-              }}
-              viewBox="0 0 80 91.429"
-            />
-            <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center" />
+        <PageLayout id="catalog-cars">
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <Container maxWidth="lg">
+              <Box className="breadcrumbs">
+                <Breadcrumbs
+                  pageTitle="Каталог Техники"
+                  pagePath="/cars"
+                  parts={[
+                    {
+                      title: 'Главная',
+                      href: '/',
+                    },
+                  ]}
+                />
+              </Box>
+              <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
+                <SparePartsIcon
+                  style={{
+                    marginLeft: '2rem',
+                    marginRight: '2rem',
+                    marginBottom: '2rem',
+                    transform: 'scale(2.5) translateY(0.5rem)',
+                    color: grey[300],
+                  }}
+                  viewBox="0 0 80 91.429"
+                />
+                <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center" />
+              </Box>
+              <PriceCategories priceCategories={allItemCarCategories} activeKey={slug} />
+              
+            </Container>
           </Box>
-          <PriceCategories priceCategories={allItemCarCategories} activeKey={slug} />
-        </Box>
+         <Box className="categorycars">
+        
+          </Box>
+        
         </PageLayout>
       </>
     );

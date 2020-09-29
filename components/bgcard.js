@@ -85,6 +85,7 @@ export const BlogCardDemo = React.memo(function BlogCard({ data }) {
     id,
     name,
     photos,
+    items,
     categories,
     description,
     pricevalue,

@@ -203,7 +203,7 @@ const ParallaxCarousel = ({ data }) => {
       </Button>
       <div className={classes.indicatorContainer}>
         {data.map(({ id }, i) => (
-          <DotIndicator key={id} active={i === index} onClick={() => onChangeIndex(i)} />
+          <DotIndicator className="dots" key={id} active={i === index} onClick={() => onChangeIndex(i)} />
         ))}
       </div>
     </>

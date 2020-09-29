@@ -44,6 +44,9 @@ const Carous = () => {
         flexDirection: 'column',
       },
     },
+    button: {
+      fontSize: '0.66rem',
+    },
     linkbtn: {
       color: 'white',
     },
@@ -112,7 +115,9 @@ const Carous = () => {
               <BlockHead heading="Запасные части" subheading="к автомобилю Урал, Камаз" justifyContent="center" >
                 <SparePartsIcon
                   className={classes.iconlogo}
-                  style={{ fontSize: '4rem', marginRight: '2rem' }}
+                  style={{ fontSize: '4rem', marginRight: '2rem',  opacity: 0.75,
+                
+                  color: grey[300], }}
                   viewBox="0 0 80 91.429"
                 />
               </BlockHead>
@@ -122,6 +127,7 @@ const Carous = () => {
               <Button  href={`/`}
         variant="outlined"
         color="secondary"
+        
         className={classes.button}
         startIcon={<GetAppIcon />}
       >

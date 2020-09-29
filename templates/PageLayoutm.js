@@ -54,8 +54,9 @@ const Layoutnx = ({ children }) => {
   muiTreasuryScheme.configureInsetSidebar((builder) => {
     builder.create('insetSidebar', { anchor: 'left' }).registerStickyConfig('md', {
       width: 320, // recommended width
-      headerMagnetEnabled: false,
+      headerMagnetEnabled: true,
     });
+    
     
   });
   muiTreasuryScheme.configureEdgeSidebar((builder) => {
@@ -119,16 +120,18 @@ const Layoutnx = ({ children }) => {
                 className={'content__block'} 
                 maxWidth={'xl'}
                 leftSidebar=
-                  {router.pathname !== "/catalog" && (
+                  {(router.pathname !== "/catalog" && router.pathname !== "/cars") && (
+                    
                     <InsetSidebar  sidebarId={'insetSidebar'}>
                     <Box pt={20}></Box>
                     <CatList pt={10}/>
                     <Box pb={20}></Box>
                   </InsetSidebar>
+       
                   )}
                 
               >
-                <Box p={4}>{children}</Box>
+                <Box width={4/4} p={4}>{children}</Box>
               </InsetContainer>
             </Content>
             <Footer>
