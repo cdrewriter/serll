@@ -12,13 +12,13 @@ export default function Home() {
   return (
     <React.Fragment>
       <PageLayout id="catalog-cars">
-        <Demo className="fh" />
-        <Carous className="carouselmain" />
-        <Box className="pricelist__block up">
-        <Formdata className="formdata"/>
-        <PriceSection />
+        <Demo className="fh" key="fh"/>
+        <Carous className="carouselmain"  key="carouselmain"/>
+        <Box className="pricelist__block up" >
+        <Formdata className="formdata"  key="formdata"/>
+        <PriceSection  key="priceSection"/>
         </Box>
-        <ServiceBlock />
+        <ServiceBlock key="serviceBlock"/>
       </PageLayout>
     </React.Fragment>
   );

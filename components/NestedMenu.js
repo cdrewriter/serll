@@ -20,9 +20,8 @@ import { CatList } from '../components/catlistquery';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    maxWidth: 360,
-    margin: 'auto',
+    width: '100%',    
+    margin: '11rem auto',
     display: 'flex',
     flexDirection: 'column',
   },

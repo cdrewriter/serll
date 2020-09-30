@@ -22,7 +22,7 @@ import {
   getFooter,
   getMuiTreasuryScheme,
 } from '@mui-treasury/layout';
-import { CatList } from '../components/catlistquery';
+import { CatList } from '../components/catcarlistquery';
 import NestedMenu from '../components/NestedMenu';
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);

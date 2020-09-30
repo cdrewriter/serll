@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Badge from '@material-ui/core/Badge';
+import { Badge, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -20,10 +20,8 @@ import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { useGutterBorderedGridStyles } from '@mui-treasury/styles/grid/gutterBordered';
-import MainCard from '../cardsflip/MainCard'
+import MainCard from '../cardsflip/MainCard';
 import Card from '../../components/cardssc/Card';
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,15 +36,23 @@ const useStyles = makeStyles((theme) => ({
   },
   badge: {
     paddingLeft: '1rem',
-    display: 'initial',
+    display: 'inline-flex',
+  },
+  subtit: {
+    display: 'inline-flex',
+  },
+  margin: {
+    margin: 10,
   },
   list: {
     display: 'flex',
     flexWrap: 'nowrap',
     flexFlow: 'column',
-
+    borderBottom: '1px solid #fafafa',
+    backgroundColor: 'white',
+    margin: '0.1rem auto',
   },
-  listitemtext: {    
+  listitemtext: {
     marginRight: '1rem',
     position: 'relative',
     fontWeight: 700,
@@ -63,8 +69,8 @@ const useStyles = makeStyles((theme) => ({
       bottom: '0px',
       left: 0,
     },
-  },  
-  
+  },
+
   listitem: {
     minHeight: '5rem',
     height: '100%',
@@ -83,9 +89,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const StyledBadge = withStyles((theme) => ({
   badge: {
-    right: 16,
-    top: '-16px',
-    bottom: 0,
+   
+ 
     height: '1.5rem',
     width: '1.5rem',
     borderRadius: '2.25rem',
@@ -103,46 +108,40 @@ function ListItemLink(subitem) {
   return name, id;
 }
 
-function SubItems({props, category}) {
+function SubItems({ props, category }) {
+  console.log(props)
+  const allsubitems = [];
+  for (let i = 0; i < props.length; ++i) {
+    allsubitems.push(
+      <Card
+        key={props[i].id}
+        engine={props[i].engine}
+        year={props[i].year}
+        name={props[i].name}
+        category={category}
+        price={props[i].pricevalue}
+        image={props[i].photos.publicUrl}
+        data={props[i]}
+      />
+    );
+  }
+  return <React.Fragment>{allsubitems}</React.Fragment>;
+}
 
-    const allsubitems = [];
-    for (let i = 0; i < props.length; ++i) {
-      allsubitems.push(   
-        <Card key={props[i].id} engine={props[i].engine} year={props[i].year} name={props[i].name} category={category} price={props[i].pricevalue} image={props[i].photos.publicUrl} data={props[i]} />
-        );
-    }
-    return (
-      <React.Fragment>
-     
-          
-        {allsubitems}
-       
-      </React.Fragment> 
-  
-  );
-};
-
-
-const AllLinks = ({props, slug}) => {  
+const AllLinks = ({ props, slug }) => {
   //console.log(props.length);
   const subitems = [];
   if (props && props.length) {
     for (let i = 0; i < props.length; ++i) {
-      subitems.push(    
-          <MainCard key={props[i].id} href={`/cars/${slug}/${props[i].slug}`} data={props[i]}/>
-      );
+      subitems.push(<MainCard key={props[i].id} href={`/cars/${slug}/${props[i].slug}`} data={props[i]} />);
     }
   }
   return (
     <React.Fragment>
-      <Box className='App'>
-        
-      {subitems}
-      </Box>
+      <Box className="App">{subitems}</Box>
     </React.Fragment>
   );
 };
-
 
 const PriceCategories = ({ priceCategories, activeKey }) => {
   const classes = useStyles();
@@ -159,46 +158,37 @@ const PriceCategories = ({ priceCategories, activeKey }) => {
       radius: 8,
       maxWidth: '1rem',
     });
-    
-    items.push(
 
-      
+    items.push(
       <Grid item key={cat.id} xs={12} md={12} lg={12} className={classes.list}>
-        
-        <Typography
-        variant="h4"
-        component="h2"
-        style={{ lineHeight: 1, textTransform: 'uppercase', }}
-        color="primary"
-      >
-          <ListItem className={classes.listitem}>
-            <Link href={`/cars/${cat.slug}`}>
-              {active ? (
-               cat.names
-              ) : (
-                <a className={classes.listitemtext}>{cat.name}</a>
-              )}
-            </Link>
-            
-            
-            
-            <StyledBadge badgeContent={cat._itemsMeta.count} max={99999} className={classes.badge} p={2} />
-            <hr />
-          </ListItem>
-          </Typography>
-          <Box className="subitems">
+        <Box pt={4} pl={4} >
+              <Box className="uptitle">
+                <Typography variant="subtitle2" className={classes.subtit} gutterBottom>
+                  Всего в разделе
+                </Typography>
+                <StyledBadge  style={{display: 'inlineFlex'}} badgeContent={cat._itemsMeta.count} max={99999} className={classes.badge} />
+              </Box>
+              <Typography className="category__heading" variant="h4" component="h2" style={{ lineHeight: 1, textTransform: 'uppercase' }} color="primary">
+              <Link href={`/cars/${cat.slug}`}>
+                {active ? cat.names : <a className={classes.listitemtext}>{cat.name}</a>}
+              </Link>  </Typography>
+            </Box>
+
+            <hr />        
+      
+        <Box className="subitems">
+          <SubItems props={cat.items} category={cat.name} />
+          {/*<AllLinks props={cat.items} slug={cat.slug} qty={cat._itemsMeta.count} />*/}
+        </Box>
+             
           
-          <SubItems  props={cat.items} category={cat.name} />
-         {/*<AllLinks props={cat.items} slug={cat.slug} qty={cat._itemsMeta.count} />*/}
-          </Box>
-         
+          
        
       </Grid>
     );
   }
   return (
-    
-    <Grid container justify="space-evenly" spacing={4} direction="row" alignItems="stretch" className="post-categories">
+    <Grid container justify="space-evenly" spacing={8} direction="row" alignItems="stretch" className="post-categories">
       {items}
     </Grid>
   );

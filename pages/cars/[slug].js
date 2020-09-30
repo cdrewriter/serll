@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
 import { Box,  Paper, Container, Grid, SvgIcon } from '@material-ui/core';
-import PageLayout from '../../templates/PageLayoutm';
+import PageLayout from '../../templates/PageLayoutmslug';
 import { makeStyles } from '@material-ui/styles';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
 import BgCard from '../../components/bgcard';
+import Card from '../../components/cardssc/Card';
 import CircularIndeterminate from '../../components/loading';
+
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -19,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     width: 100,
   },
   control: {
-    padding: theme.spacing,
+    padding: theme.spacing(0),
   },
 }));
 function SparePartsIcon(props) {
@@ -97,9 +101,21 @@ const BlogDetail = () => {
     const { allItemCars } = cacheValue.data;
     const post = allItemCars[0];
     const cars = [];
+    
     if (allItemCars && allItemCars.length) {
       for (let i = 0; i < allItemCars.length; ++i) {
-        cars.push(<BgCard key={i} data={allItemCars[i]} />);
+        cars.push(
+          <Grid item xs={12} md={8} lg={8} className="items__list">
+            <Card className="vert"
+          key={allItemCars[i].id}
+          engine={allItemCars[i].engine}
+          year={allItemCars[i].year}
+          name={allItemCars[i].name}
+          category={allItemCars[i].categories.name}
+          price={allItemCars[i].pricevalue}
+          image={allItemCars[i].photos.publicUrl}
+          data={allItemCars[i]}
+        /></Grid>);
       }
     }
     if (!allItemCars.length) {
@@ -109,9 +125,11 @@ const BlogDetail = () => {
     return (
      
       <>
-        <PageLayout id="catalog-cars">
-         <Box display="flex" flexDirection="column">
-          <Breadcrumbs
+            <PageLayout id="catalog-cars">
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <Container maxWidth="lg">
+              <Box className="breadcrumbs">
+            <Breadcrumbs
             pagePath={post.categories.slug}
             pageTitle={post.categories.name}
             parts={[
@@ -125,7 +143,8 @@ const BlogDetail = () => {
               },
             ]}
           />
-          <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
+          </Box>
+           <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
             <SparePartsIcon
               style={{ marginRight: '2rem', transform: 'scale(2.5) translateY(0.5rem)', color: grey[300] }}
               viewBox="0 0 80 91.429"
@@ -136,11 +155,13 @@ const BlogDetail = () => {
               justifyContent="center"
             />
           </Box>
-       
-          <Grid container className={classes.root} spacing={2}>
+          <Grid justify="space-evenly" className="items__list" spacing={2} direction="row" alignItems="stretch">
             {cars.length ? <React.Fragment>{cars}</React.Fragment> : <p>There are no post.</p>}
           </Grid>
-        </Box>
+         
+          </Container>
+        
+          </Box>
         </PageLayout>
       </>
     );

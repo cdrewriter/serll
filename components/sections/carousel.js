@@ -11,14 +11,16 @@ import { Box, Container, SvgIcon } from '@material-ui/core';
 import CircularIndeterminate from '../../components/loading';
 import { useGraphQL } from 'graphql-react';
 import TextFieldIndex from '../indextext.js';
+
+import Card from '../../components/cardssc/Card';
 const carousels = {
   breakPoints: [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 1, itemsToScroll: 1 },
-    { width: 850, itemsToShow: 4 },
-    { width: 1150, itemsToShow: 4, itemsToScroll: 2 },
-    { width: 1450, itemsToShow: 5 },
-    { width: 1750, itemsToShow: 5 },
+    { width: 1, itemsToShow: 2 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 2 },
+    { width: 850, itemsToShow: 5 },
+    { width: 1150, itemsToShow: 5, itemsToScroll: 3 },
+    { width: 1450, itemsToShow: 6 },
+    { width: 1750, itemsToShow: 6 },
   ],
 };
 const useStyles = makeStyles((theme) => ({
@@ -97,6 +99,7 @@ const Carous = () => {
   });
   const { loading, cacheValue } = result;
 
+
   if (cacheValue && cacheValue.data) {
     const { allItemCars } = cacheValue.data;
     const cards = [];
@@ -104,7 +107,16 @@ const Carous = () => {
       for (let i = 0; i < allItemCars.length; ++i) {
         cards.push(
           <>
-            <BlogCard key={i} props={allItemCars[i]} />
+            <Card
+              key={allItemCars[i].id}
+              engine={allItemCars[i].engine}
+              year={allItemCars[i].year}
+              name={allItemCars[i].name}
+              category={allItemCars[i].categories.name}
+              price={allItemCars[i].pricevalue}
+              image={allItemCars[i].photos.publicUrl}
+              data={allItemCars[i]}
+            />
           </>
         );
       }
@@ -119,15 +131,17 @@ const Carous = () => {
           </Box>
         </Container>
         <Carousel
-          itemPadding={[40, 16]}
-          css={{ margin: 'auto', minHeight: '32rem'}}
+          itemPadding={[20, 0]}
+          css={{ minHeight: '32rem' }}
           breakPoints={carousels.breakPoints}
           renderPagination={({ pages, activePage, onClick }) => {
             return (
               <Box direction="row">
                 {pages.map((page) => {
                   const isActivePage = activePage === page;
-                  return <DotIndicator className="dots" key={page} onClick={() => onClick(page)} active={isActivePage} />;
+                  return (
+                    <DotIndicator className="dots" key={page} onClick={() => onClick(page)} active={isActivePage} />
+                  );
                 })}
               </Box>
             );

@@ -409,3 +409,24 @@ $audi-red: rgba(187, 10, 48, 0.9);
 .content-line-value {
   font-weight: 300;
 }
+.items__list {
+  flex-flow: row wrap;
+  .card {
+    max-width: 100%;
+    display: flex;
+    .card-body {
+      flex: 3;
+  }
+  }
+
+}
+
+.category__heading {
+  margin: 0 2rem 2rem 0;
+}
+.cars__list {
+  .card-header {
+    height: initial;
+    flex: 2;
+  }
+}

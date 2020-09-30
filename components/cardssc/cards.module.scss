@@ -88,7 +88,8 @@ $blue: #341cac;
   max-width: 15vw;
   display: block;
   margin: 0.2rem;
-  box-shadow: 0px 2px 5px 0px rgba(9,30,66,0.06);
+  border: 0.01rem solid rgba(9, 30, 66, 0.06);
+  //box-shadow: 0px 2px 5px 0px rgba(9,30,66,0.06);
   transition: .25s;
   flex: 1 100%;
   
@@ -189,4 +190,14 @@ $blue: #341cac;
       margin-left: 2rem;
     }
   }
+}
+
+.sidebar_title { 
+  display: flex;
+  padding: 1.5rem;
+  font-size: 1.25rem;
+  color: #0d1e70;
+  font-weight: 700;
+  background-color: #e0e0e0;
+
 }

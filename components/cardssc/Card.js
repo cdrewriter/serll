@@ -21,7 +21,7 @@ class CardHeader extends React.Component {
 class Buttons extends React.Component {
   render() {
     return (
-      <Button style={{ marginLeft: 'auto' }}  variant="outlined" color="primary" href="#outlined-buttons">
+      <Button size="small"  style={{ marginLeft: 'auto' }}  variant="outlined" color="primary" href="#outlined-buttons">
      Подробнее
 </Button>
 

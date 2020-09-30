@@ -89,12 +89,9 @@ const Layouti = ({ children }) => {
               </SidebarContent>
               <CollapseBtn />
             </DrawerSidebar>
-            <Content>
-             
+            <Content>             
                 {children}
-               
-            
-            </Content>
+                </Content>
             <Footer>
               <NavFooterEx />
             </Footer>
