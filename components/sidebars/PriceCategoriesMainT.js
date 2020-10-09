@@ -109,7 +109,7 @@ function ListItemLink(subitem) {
 }
 
 function SubItems({ props, category }) {
-  console.log(props)
+
   const allsubitems = [];
   for (let i = 0; i < props.length; ++i) {
     allsubitems.push(
@@ -166,7 +166,7 @@ const PriceCategories = ({ priceCategories, activeKey }) => {
                 <Typography variant="subtitle2" className={classes.subtit} gutterBottom>
                   Всего в разделе
                 </Typography>
-                <StyledBadge  style={{display: 'inlineFlex'}} badgeContent={cat._itemsMeta.count} max={99999} className={classes.badge} />
+                <StyledBadge  style={{display: 'inlineFlex'}} badgeContent={cat.items.length} max={99999} className={classes.badge} />
               </Box>
               <Typography className="category__heading" variant="h4" component="h2" style={{ lineHeight: 1, textTransform: 'uppercase' }} color="primary">
               <Link href={`/cars/${cat.slug}`}>

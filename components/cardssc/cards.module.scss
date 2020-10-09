@@ -168,6 +168,8 @@ $blue: #341cac;
 .pricevalue {
   font-size: 1.5rem;
   .prefix-pricevalue {
+    display: flex;
+    font-size: 0.75rem;
 
   }
   .sufix-pricevalue {

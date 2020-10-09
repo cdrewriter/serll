@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     minWidth: '100%',
-    backgroundColor: '#f4f4f487',
+    backgroundColor: '#f4f4f4e8',
     border: '0.125rem solid #e3e3e3',
     borderRadius: 0,
   },

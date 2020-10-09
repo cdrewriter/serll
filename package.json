@@ -45,6 +45,7 @@
     "next": "^9.5.2",
     "next-graphql-react": "^8.0.1",
     "next-seo": "^4.7.3",
+    "nextjs": "^0.0.3",
     "nextjs-fonts": "^0.22.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",

@@ -21,7 +21,7 @@ class CardHeader extends React.Component {
 class Buttons extends React.Component {
   render() {
     return (
-      <Button size="small"  style={{ marginLeft: 'auto' }}  variant="outlined" color="primary" href="#outlined-buttons">
+      <Button size="small"  style={{    width: '100%' }}  variant="outlined" color="primary" href="#outlined-buttons">
      Подробнее
 </Button>
 
@@ -55,14 +55,7 @@ class CardBody extends React.Component {
         </ul>
 
         
-        <CardActions>
-          <div className="pricevalue">
-            {/*<em className="prefix-pricevalue">цена</em>*/}
-            {price}
-            <em className="sufix-pricevalue">р</em>
-          </div>
-          <Buttons />
-        </CardActions>
+        
       </div>
     );
   }
@@ -82,6 +75,14 @@ class Card extends React.Component {
           category={category}
           text={'Kayaks crowd Three Sister Springs, where people and manatees maintain controversial coexistence'}
         />
+        <CardActions>
+          <div className="pricevalue">
+            <em className="prefix-pricevalue">цена</em>
+            {price}
+            <em className="sufix-pricevalue">р</em>
+          </div>
+          <Buttons />
+        </CardActions>
       </article>
     );
   }

@@ -105,7 +105,7 @@ const BlogDetail = () => {
     if (allItemCars && allItemCars.length) {
       for (let i = 0; i < allItemCars.length; ++i) {
         cars.push(
-          <Grid item xs={12} md={8} lg={8} className="items__list">
+          <Grid item xs={12} md={10} lg={6} xl={6} className="items__list">
             <Card className="vert"
           key={allItemCars[i].id}
           engine={allItemCars[i].engine}
@@ -155,7 +155,7 @@ const BlogDetail = () => {
               justifyContent="center"
             />
           </Box>
-          <Grid justify="space-evenly" className="items__list" spacing={2} direction="row" alignItems="stretch">
+          <Grid container  justify="space-evenly" display="flex" className="items__list" spacing={2} direction="row" wrap alignItems="stretch">
             {cars.length ? <React.Fragment>{cars}</React.Fragment> : <p>There are no post.</p>}
           </Grid>
          

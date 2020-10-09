@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Carousel from 'react-elastic-carousel';
-import BlogCard from '../blogcard';
+//import BlogCard from '../blogcard';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes, { array } from 'prop-types';
 import DotIndicator from '@mui-treasury/components/indicator/dot';
@@ -13,11 +13,13 @@ import { useGraphQL } from 'graphql-react';
 import TextFieldIndex from '../indextext.js';
 
 import Card from '../../components/cardssc/Card';
+
+
 const carousels = {
   breakPoints: [
     { width: 1, itemsToShow: 2 },
     { width: 550, itemsToShow: 3, itemsToScroll: 2 },
-    { width: 850, itemsToShow: 5 },
+    { width: 850, itemsToShow: 3 },
     { width: 1150, itemsToShow: 5, itemsToScroll: 3 },
     { width: 1450, itemsToShow: 6 },
     { width: 1750, itemsToShow: 6 },
@@ -131,7 +133,7 @@ const Carous = () => {
           </Box>
         </Container>
         <Carousel
-          itemPadding={[20, 0]}
+   
           css={{ minHeight: '32rem' }}
           breakPoints={carousels.breakPoints}
           renderPagination={({ pages, activePage, onClick }) => {

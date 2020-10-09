@@ -163,7 +163,7 @@ const useStyles = makeStyles(({ palette, breakpoints, spacing }) => ({
       maxWidth: '80vw',
     },
     [breakpoints.down('sm')]: {
-      height: '80%',
+
       width: '100%',
     },
   },
