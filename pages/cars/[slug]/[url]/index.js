@@ -1,42 +1,33 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
-import { Paper, Box, Container, SvgIcon } from '@material-ui/core';
-import CircularIndeterminate from '../../components/loading';
-import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
-import Tabll from '../../components/dataTable';
-import BlockHead from '../../templates/BlockHead';
-import PageLayout from '../../templates/PageLayoutm';
-import { makeStyles } from '@material-ui/core/styles';
-import theme from '../../templates/theme';
-/*
-export async function getServerSideProps() {
-  const res = await fetch(`${process.browser ? '' : 'https://keystone-quickstart.cdrewriter.vercel.app'}/api/priceapi`)
-  const data = await res.json()
+import { Box, Container, Grid, SvgIcon } from '@material-ui/core';
+import PageLayout from '../../../../templates/PageLayoutmslug';
+import { makeStyles } from '@material-ui/styles';
+import Breadcrumbs from '../../../../components/breadcrumbs/Breadcrumbs';
+import BlockHead from '../../../../templates/BlockHead';
+import { grey } from '@material-ui/core/colors';
+import BgCard from '../../../../components/bgcard';
+import Card from '../../../../components/cardssc/Card';
+import CircularIndeterminate from '../../../../components/loading';
 
-  // Pass data to the page via props
-  return { props: { data } }
-}
-*/
+import FullCard from '../../../../components/FullCard/FullCard';
 
 
-const useStyles = makeStyles(() => ({
-  root: {  
-    padding: 0,
-    [theme.breakpoints.down('sm')]: {
-      padding: '2rem',
-    },
-    [theme.breakpoints.up('md')]: {
-      padding: '2rem',
-    },
-    [theme.breakpoints.up('lg')]: {
-      padding: '2rem',
-    },
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    height: 140,
+    width: 100,
+  },
+  control: {
+    padding: theme.spacing(0),
   },
 }));
-
 function SparePartsIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -58,102 +49,162 @@ function SparePartsIcon(props) {
 
 const BlogDetail = () => {
   const { query } = useRouter();
-  const { slug } = query;
-  const classes = useStyles();
+  const { url } = query;
+  //console.log(url)
   const result = useGraphQL({
     fetchOptionsOverride(options) {
       options.url = `${process.browser ? '' : 'http://localhost:3000'}/admin/api`;
     },
     operation: {
       query: /* GraphQL */ `
-        query PostDetail($postWhere: ItemPriceWhereInput) {
-          allItemPrices(where: $postWhere) {
-            id
-            name
-            art
-            pricevalue
-            categories {
-              id
-              name
-              slug
-              description
+      query PostDetail($postWhere: String) {
+        allItemCars(where: { slug: $postWhere }) {
+          name
+          slug
+          id
+          year
+          status
+          isEnabled
+          netweight
+          pricevalue
+          description
+          photos {
+            publicUrlTransformed(
+              transformation: { gravity: "center", height: "400", width: "600" }
+            )
+          }
+          gallery {
+            images {
+              image {
+                publicUrlTransformed(
+                  transformation: { gravity: "center", height: "480", width: "640" }
+                )
+              }
             }
           }
+      
+          engine
+          chassis
+          categories {
+            name
+            slug
+            id
+            description
+          }
         }
+        allItemCarCategories {
+          name
+          slug
+          id
+          description
+          _itemsMeta {
+            count
+          }
+        }
+      }
+      
       `,
       variables: {
-        postWhere: {
-          categories: { slug: slug },
-        },
+        postWhere: 
+          url ,
+      
       },
     },
     loadOnMount: true,
     loadOnReload: true,
     loadOnReset: true,
   });
+
+  const classes = useStyles();
+
   const { loading, cacheValue } = result;
-
   if (cacheValue && cacheValue.data) {
-    const { allItemPrices } = cacheValue.data;
-    if (!allItemPrices.length) {
-      // When post is not found
-      return <PageLayout>Not fou1nd</PageLayout>;
-    }
+    const { allItemCars } = cacheValue.data;
+    const post = allItemCars[0];
+    {/* const cars = [];
 
-    const post = allItemPrices[0];
+    if (allItemCars && allItemCars.length) {
+      for (let i = 0; i < allItemCars.length; ++i) {
+        cars.push(
+          <Grid item xs={12} md={10} lg={6} xl={6} className="items__list">
+            <Card
+              className="vert"
+              key={allItemCars[i].id}
+              engine={allItemCars[i].engine}
+              year={allItemCars[i].year}
+              name={allItemCars[i].name}
+              category={allItemCars[i].categories.name}
+              price={allItemCars[i].pricevalue}
+              image={allItemCars[i].photos.publicUrl}
+              data={allItemCars[i]}
+            />
+           
+          </Grid>
+        );
+      }
+    }*/}
+    if (!allItemCars.length) {
+      // When post is not found
+      return 'Not fou1nd';
+    }
     return (
       <>
-        <PageLayout id="catalog-price">
-        
-            <Breadcrumbs
-              pagePath={post.categories.slug}
-              pageTitle={post.categories.name}
-              parts={[
-                {
-                  title: 'Главная',
-                  href: '/',
-                },
-                {
-                  title: 'Каталог',
-                  href: '/catalog',
-                },
-              ]}
-            />
-            <Box m={1} className={classes.root} style={{ display: 'flex', flexWrap: 'wrap' }}>
-              {/*<SparePartsIcon
+        <PageLayout id="catalog-cars">
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <Box>
+              <Breadcrumbs
+                pagePath={post.categories.slug}
+                pageTitle={post.categories.name}
+                parts={[
+                  {
+                    title: 'Главная',
+                    href: '/',
+                  },
+                  {
+                    title: 'Каталог Техники',
+                    href: '/cars',
+                  },
+                ]}
+              />
+            </Box>
+            <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <SparePartsIcon
                 style={{
-                 
-                  right: '2rem',
-                  opacity: 0.4,
-                  zIndex: 0,
-                  position: 'absolute',
-                  transform: 'scale(5) translateY(0rem)',
+                  marginLeft: '2rem',
+                  marginRight: '2rem',
+                  marginBottom: '2rem',
+                  transform: 'scale(2.5) translateY(0.5rem)',
                   color: grey[300],
                 }}
                 viewBox="0 0 80 91.429"
-              />*/}
+              />
               <BlockHead
                 heading={post.categories.name}
                 subheading={post.categories.description}
                 justifyContent="center"
               />
             </Box>
-
-            {/*<Grid container>
-            <Grid item xs={3}>
-              <PriceCategories priceCategories={allItemCategories} activeKey={slug} />
-            </Grid>
-          <Grid item xs={9}>*/}
-            <Paper elevation={0}>
-              <Tabll data={allItemPrices} />
-            </Paper>
-            {/*</Grid>
-          </Grid>*/}
-
+            <Container maxWidth="lg">
+              <Grid
+                container
+                justify="space-evenly"
+                display="flex"
+                className="items__list"
+                spacing={2}
+                direction="row"
+                wrap
+                alignItems="stretch"
+              >
+              
+                {allItemCars.length ? <React.Fragment>  <FullCard data={allItemCars}/></React.Fragment> : <p>There are no post.</p>}
+              </Grid>
+            </Container>
+          </Box>
         </PageLayout>
       </>
     );
   }
+
   return loading ? <CircularIndeterminate /> : '';
 };
 

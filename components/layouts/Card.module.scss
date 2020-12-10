@@ -1,0 +1,18 @@
+.card {
+  border: 1px solid #0d1e7021;
+
+  
+}
+
+.card__link {
+  a {
+    border-bottom: 1px dashed #004;
+  text-decoration: none;
+  color: #0d1e70;
+  &:hover {
+    color: #49459f;
+  }
+  
+  }
+
+}

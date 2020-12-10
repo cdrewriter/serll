@@ -83,13 +83,13 @@ const Layouti = ({ children }) => {
                 <HeaderEx />
               </Toolbar>
             </Header>
-            <DrawerSidebar sidebarId={'primarySidebar'}>
+            <DrawerSidebar sidebarId={'primarySidebar'} className={'sidebar_drawer'}>
               <SidebarContent  sidebarId={'primarySidebar'} className="sidebar_cont">
                 <NestedMenu />
               </SidebarContent>
               <CollapseBtn />
             </DrawerSidebar>
-            <Content>             
+            <Content className="main">             
                 {children}
                 </Content>
             <Footer>

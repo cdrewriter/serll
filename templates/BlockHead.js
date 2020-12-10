@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BlockHead = (props) => {
-  const styles = useStyles(props);
+
 
   const classes = useStyles();
   return (

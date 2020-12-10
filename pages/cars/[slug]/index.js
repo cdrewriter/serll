@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useGraphQL } from 'graphql-react';
-import { Box,  Paper, Container, Grid, SvgIcon } from '@material-ui/core';
-import PageLayout from '../../templates/PageLayoutmslug';
+import { Box, Paper, Container, Grid, SvgIcon } from '@material-ui/core';
+import { Badge, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Layout from '../../../templates/PageLayoutmslug';
+import PriceCategories from '../../../components/sidebars/PriceCategoriesMainT';
 import { makeStyles } from '@material-ui/styles';
-import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
-import BlockHead from '../../templates/BlockHead';
+import Breadcrumbs from '../../../components/breadcrumbs/Breadcrumbs';
+import BlockHead from '../../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
-import BgCard from '../../components/bgcard';
-import Card from '../../components/cardssc/Card';
-import CircularIndeterminate from '../../components/loading';
-
-
-
+//import BgCard from '../../../components/bgcard';
+import Card from '../../../components/layouts/Card';
+import CircularIndeterminate from '../../../components/loading';
+import { Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -26,6 +28,21 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0),
   },
 }));
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+     
+   
+      height: '2.5rem',
+      width: '2.5rem',
+      borderRadius: '2.25rem',
+      backgroundColor: 'rgba(9, 30, 66, 0.06)',
+      border: '1px solid transparent',
+      color: '#0d1e70',
+      fontSize: '1rem',
+      padding: '0.5rem',
+    },
+  }))(Badge);
+  
 function SparePartsIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -46,7 +63,6 @@ function SparePartsIcon(props) {
 }
 
 const BlogDetail = () => {
-
   const { query } = useRouter();
   const { slug } = query;
 
@@ -56,37 +72,42 @@ const BlogDetail = () => {
     },
     operation: {
       query: /* GraphQL */ `
-        query PostDetail($postWhere: ItemCarWhereInput) {
-          allItemCars(where: $postWhere) {
-            id
-            name
-            photos {
-              publicUrl
-            }
-            pricevalue
-            categories {
-              name
-              slug
-              id
-            }
-            chassis
-            isEnabled
-            description
-            netweight
-            engine
+      query PostDetail($postWhere: String) {
+        allItemCars(where: { categories_some: { slug: $postWhere } }) {
+          name
+          slug
+          id
+          year
+          pricevalue
+          description
+          photos {
+            publicUrlTransformed(transformation: {gravity:"center",height:"400",width:"600"})
           }
-          allItemCarCategories {
+          engine
+          chassis
+          categories {
             name
             slug
             id
             description
+            _itemsMeta {
+              count
+            }
+          }          
+        }
+        allItemCarCategories {
+          name
+          slug
+          id
+          description
+          _itemsMeta {
+            count
           }
         }
+      }
       `,
       variables: {
-        postWhere: {
-          categories: { slug: slug },
-        },
+        postWhere: slug,
       },
     },
     loadOnMount: true,
@@ -97,72 +118,118 @@ const BlogDetail = () => {
   const classes = useStyles();
 
   const { loading, cacheValue } = result;
+
   if (cacheValue && cacheValue.data) {
-    const { allItemCars } = cacheValue.data;
-    const post = allItemCars[0];
+    const { allItemCars, allItemCarCategories } = cacheValue.data;
+ //console.log(allItemCars)
+ //console.log(allItemCarCategories)
+    const { categories } = allItemCars[0];
+    const postname = categories[0].name;
+    const postslug = categories[0].slug;
+    const postdescription = allItemCars[0].description;
     const cars = [];
+    const carscat = [];
+
+    if (allItemCarCategories && allItemCarCategories.length) {
+        for (let i = 0; i < allItemCarCategories.length; ++i) {
+         
+            
+         
+            const active = slug === allItemCarCategories[i].slug;
+     
+            carscat.push(
+           
+            <Grid item xs={3}>
+            <Box  pl={4} >
+                  
+                  <Typography className="category__heading" variant="h3" component="h2" style={{ lineHeight: 1, textTransform: 'uppercase' }} color="primary">
+                  <Link href={`/cars/${allItemCarCategories[i].slug}`}>
+                    <a className={classes.listitemtext}>{allItemCarCategories[i].name}</a>
+                  </Link>  </Typography>
+                  <Box  pt={4} className="uptitle">
+                    <Typography variant="subtitle2" className={classes.subtit} gutterBottom>
+                      Всего в разделе
+                    </Typography>
+                    <StyledBadge  style={{display: 'inlineFlex'}} badgeContent={allItemCarCategories[i]._itemsMeta.count} max={99999} className={classes.badge} />
+                  </Box>
+                </Box>
+                </Grid>
+            
+          );
+         
+        }
+      };
+      if (allItemCars && allItemCars.length) {
+        for (let i = 0; i < allItemCars.length; ++i) {
+         
+         
+          //console.log(postname)
+          cars.push(
+           
+              <Card
+                className="vert"
+                key={allItemCars[i].id}
+                engine={allItemCars[i].engine}
+                year={allItemCars[i].year}
+                name={allItemCars[i].name}
+                categorys={allItemCars[i].categories}
+                price={allItemCars[i].pricevalue}
+                image={allItemCars[i].photos.publicUrlTransformed}
+                data={allItemCars[i]}
+              />
+          
+          );
+     
+        }
+      };
     
-    if (allItemCars && allItemCars.length) {
-      for (let i = 0; i < allItemCars.length; ++i) {
-        cars.push(
-          <Grid item xs={12} md={10} lg={6} xl={6} className="items__list">
-            <Card className="vert"
-          key={allItemCars[i].id}
-          engine={allItemCars[i].engine}
-          year={allItemCars[i].year}
-          name={allItemCars[i].name}
-          category={allItemCars[i].categories.name}
-          price={allItemCars[i].pricevalue}
-          image={allItemCars[i].photos.publicUrl}
-          data={allItemCars[i]}
-        /></Grid>);
-      }
-    }
+
     if (!allItemCars.length) {
       // When post is not found
       return 'Not fou1nd';
-    }
+    };
+    //console.log(postslug);
     return (
-     
       <>
-            <PageLayout id="catalog-cars">
+       <Layout categ={allItemCarCategories} activeKey={slug} id="catalog-cars">
           <Box display="flex" flexDirection="column" justifyContent="center">
-            <Container maxWidth="lg">
-              <Box className="breadcrumbs">
-            <Breadcrumbs
-            pagePath={post.categories.slug}
-            pageTitle={post.categories.name}
-            parts={[
-              {
-                title: 'Главная',
-                href: '/',
-              },
-              {
-                title: 'Каталог Техники',
-                href: '/cars',
-              },
-            ]}
-          />
-          </Box>
-           <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <SparePartsIcon
-              style={{ marginRight: '2rem', transform: 'scale(2.5) translateY(0.5rem)', color: grey[300] }}
-              viewBox="0 0 80 91.429"
-            />
-            <BlockHead
-              heading={post.categories.name}
-              subheading={post.categories.description}
-              justifyContent="center"
-            />
-          </Box>
-          <Grid container  justify="space-evenly" display="flex" className="items__list" spacing={2} direction="row" wrap alignItems="stretch">
-            {cars.length ? <React.Fragment>{cars}</React.Fragment> : <p>There are no post.</p>}
-          </Grid>
+            
+              <Box>
+                <Breadcrumbs
+                  pageTitle="Каталог Техники"
+                  pagePath="/cars"
+                  parts={[
+                    {
+                      title: 'Главная',
+                      href: '/',
+                    },
+                  ]}
+                />
+              </Box>
+              <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
+                <SparePartsIcon
+                  style={{
+                    marginLeft: '2rem',
+                    marginRight: '2rem',
+                    marginBottom: '2rem',
+                    transform: 'scale(2.5) translateY(0.5rem)',
+                    color: grey[300],
+                  }}
+                  viewBox="0 0 80 91.429"
+                />
+                <BlockHead heading={postname}  justifyContent="center" />
+            
+              </Box>
+              {cars}
+              <PriceCategories priceCategories={allItemCars} activeslug={postslug} activeKey={slug} />
+            
          
-          </Container>
+          </Box>
+         <Box className="categorycars">
         
           </Box>
-        </PageLayout>
+        
+        </Layout>
       </>
     );
   }
@@ -171,7 +238,7 @@ const BlogDetail = () => {
 };
 
 BlogDetail.propTypes = {
-  activeKey: PropTypes.string,
+  activeKey: PropTypes.any,
 };
 
 export default BlogDetail;

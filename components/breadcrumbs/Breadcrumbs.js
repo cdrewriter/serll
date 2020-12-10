@@ -36,7 +36,7 @@ const Breadcrumb = ({ pageTitle, pagePath, parts }) => {
   return (
     <React.Fragment>
       <BreadcrumbJsonLd itemListElements={itemListElements} />
-      <Breadcrumbs className="breadcrumbs">
+      <Breadcrumbs>
         {breadcrumbItems}
         {!!pageTitle && <Typography component="a" className=
         "active">{pageTitle}</Typography>}

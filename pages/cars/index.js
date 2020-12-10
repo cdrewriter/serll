@@ -7,11 +7,11 @@ import BgCard from '../../components/bgcard';
 import { Box, Container, SvgIcon } from '@material-ui/core';
 import Breadcrumbs from '../../components/breadcrumbs/Breadcrumbs';
 import PriceCategories from '../../components/sidebars/PriceCategoriesMainT';
-import PriceItem from '../../components/price/PriceItem';
 import BlockHead from '../../templates/BlockHead';
 import { grey } from '@material-ui/core/colors';
-import PageLayout from '../../templates/PageLayoutm';
+import Layout from '../../templates/PageLayoutmslug';
 import CircularIndeterminate from '../../components/loading';
+
 
 /*
 export async function getServerSideProps() {
@@ -37,6 +37,7 @@ function SparePartsIcon(props) {
           fill="#c7c7c7"
         />
       </g>
+
     </SvgIcon>
   );
 }
@@ -55,30 +56,38 @@ const CarsList = () => {
     },
     operation: {
       query: /* GraphQL */ `
-        query CarCategoriesList {
-          allItemCarCategories {
-            name
-            slug
-            id
-            description
-            items {
+      query CarCategoriesList {
+        allItemCarCategories {
+          name
+          slug
+          id
+          description
+          items {
+            categories {
               name
               slug
               id
-              year
-              pricevalue
-              description
-              photos {
-                publicUrl
+              _itemsMeta {
+                count
               }
-              engine
-              chassis
             }
-            _itemsMeta {
-              count
+            name
+            slug
+            id
+            year
+            pricevalue
+            description
+            photos {
+              publicUrlTransformed(transformation: {gravity:"center",height:"400",width:"600"})
             }
+            engine
+            chassis
+          }
+          _itemsMeta {
+            count
           }
         }
+      }
       `,
       variables: {
         postWhere: {
@@ -91,25 +100,24 @@ const CarsList = () => {
     loadOnReset: true,
   });
   const { loading, cacheValue } = result;
-  //console.log(result);
+ // console.log({slug});
   if (cacheValue && cacheValue.data) {
     const { allItemCarCategories } = cacheValue.data;
     const priceItems = [];
+    const priceCars = [];
+
     if (allItemCarCategories && allItemCarCategories.length) {
       for (let i = 0; i < allItemCarCategories.length; ++i) {
-        priceItems.push(
-          <>
-            <BgCard key={i} post={allItemCarCategories[i]} />
-          </>
+        priceCars.push(
+          allItemCarCategories[i].items
         );
       }
     }
+    //console.log(priceCars)
     return (
       <>
-        <PageLayout id="catalog-cars">
-          <Box display="flex" flexDirection="column" justifyContent="center">
-            <Container maxWidth="lg">
-              <Box className="breadcrumbs">
+        <Layout categ={allItemCarCategories} activeKey={slug} id="catalog-cars">
+        <Box p={4} style={{ background: '#fff' }}>
                 <Breadcrumbs
                   pageTitle="Каталог Техники"
                   pagePath="/cars"
@@ -121,6 +129,9 @@ const CarsList = () => {
                   ]}
                 />
               </Box>
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            
+              
               <Box my={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
                 <SparePartsIcon
                   style={{
@@ -133,16 +144,17 @@ const CarsList = () => {
                   viewBox="0 0 80 91.429"
                 />
                 <BlockHead heading="Техника в наличии" subheading="на стоянке в Миассе" justifyContent="center" />
+            
               </Box>
-              <PriceCategories priceCategories={allItemCarCategories} activeKey={slug} />
               
-            </Container>
+              
+              
+         
           </Box>
-         <Box className="categorycars">
+          <PriceCategories qty={allItemCarCategories._itemsMeta} priceCategories={priceCars} activeKey={slug} />
+    
         
-          </Box>
-        
-        </PageLayout>
+        </Layout>
       </>
     );
   }

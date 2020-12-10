@@ -38,12 +38,21 @@ const Carous = () => {
     root: {
       width: '100%',
       flexDirection: 'row',
+      width: '100%',
+flexDirection: 'row',
+justifyContent: 'space-around',
+background: '#fff',
+margin: 0,
+padding: '5rem 0 2rem',
+position: 'relative',
+      
       justifyContent: 'space-between',
 
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
       },
     },
+ 
     button: {
       fontSize: '0.66rem',
     },
@@ -105,7 +114,7 @@ const Carous = () => {
         <Container maxWidth="lg">
        
           <Box
-            className={classes.root}
+            className={classes.root + classes.rootafter}
             display="flex"
             flexDirection={'down(md): column'}
             my={8}
@@ -127,6 +136,7 @@ const Carous = () => {
               <Button  href={`/`}
         variant="outlined"
         color="secondary"
+        size="large"
         
         className={classes.button}
         startIcon={<GetAppIcon />}

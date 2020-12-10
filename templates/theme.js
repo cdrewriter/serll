@@ -97,6 +97,7 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
+    
       headline: {
         color: 'rgba(0, 0, 0, 0.87)',
         fontFamily: '"SF Pro Display"',
@@ -192,7 +193,7 @@ const theme = responsiveFontSizes(
       mobileStepper: 1000,
       tooltip: 1500,
     },
-    shape: { borderRadius: 4 },
+    shape: { borderRadius: 0 },
     props: {},
 
     palette: {
@@ -224,9 +225,9 @@ const theme = responsiveFontSizes(
       divider: 'rgba(0, 0, 0, 0.12)',
       secondary: {
         main: '#FF4E00',
-        light: 'rgb(255, 113, 51)',
-        dark: 'rgb(178, 54, 0)',
-        contrastText: '#f5ffff',
+        light: '#ff823b',
+        dark: '#c30500',
+        contrastText: '#fafafa',
       },
       common: { black: '#000', white: '#fff' },
       error: {
@@ -246,8 +247,8 @@ const theme = responsiveFontSizes(
       },
       primary: {
         main: '#0D1E70',
-        light: 'rgb(61, 75, 140)',
-        dark: 'rgb(9, 21, 78)',
+        light: '#49459f',
+        dark: '#000044',
         contrastText: '#fff',
       },
     },

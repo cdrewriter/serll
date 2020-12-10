@@ -11,18 +11,18 @@ import { Box, Container, SvgIcon } from '@material-ui/core';
 import CircularIndeterminate from '../../components/loading';
 import { useGraphQL } from 'graphql-react';
 import TextFieldIndex from '../indextext.js';
-
-import Card from '../../components/cardssc/Card';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Card from '../../components/layouts/Card';
 
 
 const carousels = {
   breakPoints: [
-    { width: 1, itemsToShow: 2 },
-    { width: 550, itemsToShow: 3, itemsToScroll: 2 },
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
     { width: 850, itemsToShow: 3 },
-    { width: 1150, itemsToShow: 5, itemsToScroll: 3 },
-    { width: 1450, itemsToShow: 6 },
-    { width: 1750, itemsToShow: 6 },
+    { width: 1150, itemsToShow: 3, itemsToScroll: 3 },
+    { width: 1450, itemsToShow: 4 },
+    { width: 1750, itemsToShow: 5 },
   ],
 };
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +76,9 @@ const Carous = () => {
         query($isEnabled: Boolean) {
           allItemCars(where: { isEnabled: $isEnabled }) {
             name
+            slug
             id
+            year
             pricevalue
             description
             isEnabled
@@ -86,10 +88,11 @@ const Carous = () => {
               id
             }
             photos {
-              publicUrl
+              publicUrlTransformed(transformation: {gravity:"center",height:"400",width:"600"})
             }
             netweight
             engine
+            chassis
           }
         }
       `,
@@ -108,18 +111,19 @@ const Carous = () => {
     if (allItemCars && allItemCars.length) {
       for (let i = 0; i < allItemCars.length; ++i) {
         cards.push(
-          <>
+          <SwiperSlide key={allItemCars[i].id}>
             <Card
-              key={allItemCars[i].id}
+              
               engine={allItemCars[i].engine}
               year={allItemCars[i].year}
               name={allItemCars[i].name}
               category={allItemCars[i].categories.name}
               price={allItemCars[i].pricevalue}
-              image={allItemCars[i].photos.publicUrl}
+              image={allItemCars[i].photos.publicUrlTransformed}
               data={allItemCars[i]}
             />
-          </>
+           </SwiperSlide>
+        
         );
       }
     }
@@ -132,25 +136,17 @@ const Carous = () => {
             </BlockHead>
           </Box>
         </Container>
-        <Carousel
-   
-          css={{ minHeight: '32rem' }}
-          breakPoints={carousels.breakPoints}
-          renderPagination={({ pages, activePage, onClick }) => {
-            return (
-              <Box direction="row">
-                {pages.map((page) => {
-                  const isActivePage = activePage === page;
-                  return (
-                    <DotIndicator className="dots" key={page} onClick={() => onClick(page)} active={isActivePage} />
-                  );
-                })}
-              </Box>
-            );
-          }}
-        >
-          {cards}
-        </Carousel>
+        <Swiper
+      spaceBetween={20}
+      freeMode={true}
+      slidesPerView={5}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+    >
+       {cards}
+     
+    </Swiper>
+       
         <TextFieldIndex />
       </Box>
     );

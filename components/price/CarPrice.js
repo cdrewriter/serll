@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import PriceItem from '../../components/price/PriceItem';
 
 const CarPrice = ({ data }) => {
-  console.log(data);
+  //console.log(data);
   return (
     <>
       <TableContainer component={Paper} key="alls">

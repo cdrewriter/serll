@@ -109,6 +109,10 @@ const ItemCar = {
       type: CloudinaryImage,
       adapter: cloudadapter,
     },
+    gallery: {
+      type: KeystoneCloudinaryGallery,
+      adapter: cloudadapter,
+    },
     pricevalue: { type: Integer },
     categories: {
       type: Relationship,
@@ -124,6 +128,21 @@ const ItemCar = {
         { label: 'Draft', value: 'draft' },
         { label: 'Published', value: 'published' },
       ],
+    },
+    wheeltype: {
+      type: Select,
+      defaultValue: '6x6',
+      dataType: 'string',
+      options: [
+        { label: '6x6', value: '6x6' },
+        { label: '6x4', value: '6x4' },
+        { label: '4x4', value: '4x4' },
+        { label: '4x2', value: '4x2' },
+        { label: '8x4', value: '8x4' },
+      ],
+    },
+    horsepower: {
+      type: Integer,
     },
     isEnabled: { type: Checkbox, isRequired: true, label: 'В наличии' },
     description: { type: Wysiwyg },

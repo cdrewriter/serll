@@ -52,7 +52,7 @@ const styles = ({ spacing, transitions, breakpoints, palette, shape }) => ({
     justifyContent: 'center',
   },
   logo: {
-    height: '64px',
+    height: '72px',
     overflow: 'visible',
     position: 'relative',
     display: 'flex',
@@ -64,7 +64,7 @@ const styles = ({ spacing, transitions, breakpoints, palette, shape }) => ({
   },
   flags: {
     marginLeft: '2rem',
-    minHeight: '4rem',
+    minHeight: '4.5rem',
     display: 'flex',
     alignItems: 'center',
   },

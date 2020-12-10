@@ -50,10 +50,10 @@ function HomeIcon(props) {
 const Formdata = () => {
   const classes = useStyles();
   return (
-
+<Box m={0}>
       <Container maxWidth="lg">
         <Paper css={{ padding: '2rem', margin: 0, zIndex: 99, position: 'relative' }} elevation={12}>
-          <form className={classes.root} css={{ display: 'flex' }} noValidate autoComplete="off" spacing={20}>
+          <form  css={{ display: 'flex' }} noValidate autoComplete="off" spacing={20}>
             <Grid container spacing={2} direction="row" justify="center" alignItems="stretch">
               <Grid item lg={4} md={8}>
                 <Box display="flex" flexDirection="column" alignItems="center" justifyContent="space-evenly">
@@ -143,6 +143,7 @@ const Formdata = () => {
           </form>
         </Paper>
       </Container>
+      </Box>
 
   );
 };

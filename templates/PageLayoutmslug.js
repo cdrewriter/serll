@@ -8,6 +8,14 @@ import theme from './theme';
 import HeaderEx from '../components/HeaderEx';
 import NavFooterEx from '../components/FooterEx';
 import { useRouter } from 'next/router';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+  head: {
+    background: '#f5f5f5',
+  }
+}));
 
 import {
   Root,
@@ -22,7 +30,7 @@ import {
   getFooter,
   getMuiTreasuryScheme,
 } from '@mui-treasury/layout';
-import { CatList } from '../components/catcarlistquery';
+
 import NestedMenu from '../components/NestedMenu';
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
@@ -40,19 +48,19 @@ muiTreasuryScheme.enableAutoCollapse('primarySidebar', 'md');
 muiTreasuryScheme.configureHeader((builder) => {
   builder.create('header').registerConfig('xs', {
     position: 'sticky',
-    initialHeight: 64,
+    initialHeight: 72,
   })
-  .registerConfig('xl', {
+  .registerConfig('xs', {
       position: 'relative', // won't stick to top when scroll down
       clipped: true,
-      initialHeight: 64,
+      initialHeight: 72,
     });
 });
 
-const Layoutnx = ({ children }) => {
+const Layout = ({ children, activeKey, categ }) => {
   const router = useRouter();
   muiTreasuryScheme.configureInsetSidebar((builder) => {
-    builder.create('insetSidebar', { anchor: 'left' }).registerStickyConfig('md', {
+    builder.create('insetSidebar', { anchor: 'left' }).registerStickyConfig('xs', {
       width: 320, // recommended width
       headerMagnetEnabled: true,
     });
@@ -63,37 +71,37 @@ const Layoutnx = ({ children }) => {
     builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('xl', {
       width: '20%', // recommended width
       collapsible: true,
-      collapsedWidth: 64,
+      collapsedWidth: 72,
       headerMagnetEnabled: true,
       autoExpanded: true,     
       persistentBehavior: {
         header: 'fit',
         content: 'fit',
-        footer: 'none'
+        footer: 'fit'
       },
     });
     builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('lg', {
       width: '22.5%', // recommended width
       collapsible: true,
-      collapsedWidth: 64,
+      collapsedWidth: 72,
       headerMagnetEnabled: true,
       autoExpanded: true,
       persistentBehavior: {
         header: 'fit',
         content: 'fit',
-        footer: 'none'
+        footer: 'fit'
       },
     });
     builder.create('primarySidebar', { anchor: 'left' }).registerPersistentConfig('md', {
       width: '22.5%', // recommended width
       collapsible: true,
-      collapsedWidth: 64,
+      collapsedWidth: 72,
       headerMagnetEnabled: true,
       autoExpanded: true,
       persistentBehavior: {
         header: 'fit',
         content: 'fit',
-        footer: 'none'
+        footer: 'fit'
       },
     });
     if (router.pathname === '/') {
@@ -107,14 +115,17 @@ const Layoutnx = ({ children }) => {
       builder.hide('primarySidebar', false);
     }
   });
+  muiTreasuryScheme.enableAutoCollapse('primarySidebar', 'lg')
 
+  const classes = useStyles();
+  //console.log(categ)
   return (
     <StylesProvider injectFirst>
      
-      <Root theme={theme} scheme={muiTreasuryScheme}>
+      <Root theme={theme} scheme={muiTreasuryScheme}  initialState={{ sidebar: { primarySidebar: { open: true, collapsed: true } } }}>
         {({ state: { sidebar } }) => (
           <>
-            <Header>
+            <Header className={classes.head}>
               <Toolbar>
                 <SidebarTrigger sidebarId="primarySidebar" />
                 <HeaderEx />
@@ -122,23 +133,24 @@ const Layoutnx = ({ children }) => {
             </Header>
             <DrawerSidebar sidebarId="primarySidebar">
               <SidebarContent className="sidebar_cont">
-                <NestedMenu />
+                <NestedMenu activeKey={activeKey} />
                 
               </SidebarContent>
               <CollapseBtn />
-            </DrawerSidebar>
+        </DrawerSidebar>
             <Content>
-              <InsetContainer
+              {/*<InsetContainer
                 className={'content__block'} 
                 maxWidth={'xl'}
                 leftSidebar=
-                  {(router.pathname !== "/catalog" && router.pathname !== "/cars") && (
+                  {(router.pathname !== "/catalog") && (
                     
                     <InsetSidebar  sidebarId={'insetSidebar'}>
                     <Box className="heading" pt={20}>
                       <h3 className="sidebar_title">Каталог</h3>
                     </Box>
-                    <CatList pt={10}/>
+                    {categorycatalog}
+                    <CatList active={activeKey} pt={10}/>
                     <Box pb={20}></Box>
                   </InsetSidebar>
        
@@ -146,7 +158,8 @@ const Layoutnx = ({ children }) => {
                 
               >
                 <Box className="content__inset" width={4/4} p={4}>{children}</Box>
-              </InsetContainer>
+              </InsetContainer>*/}
+               <Box className="content__inset" width={4/4} p={4}>{children}</Box>
             </Content>
             <Footer>
               <NavFooterEx />
@@ -157,8 +170,8 @@ const Layoutnx = ({ children }) => {
     </StylesProvider>
   );
 };
-export default Layoutnx;
+export default Layout;
 
-Layoutnx.propTypes = {
+Layout.propTypes = {
   children: PropTypes.any,
 };
